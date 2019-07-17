@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
@@ -14,7 +15,7 @@ import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailFragment
 
 class DeviceRecyclerAdapter(
-    private val parentActivity: DeviceListActivity,
+    private val parentActivity: FragmentActivity,
     private val twoPane: Boolean
 ) :
     RecyclerView.Adapter<DeviceRecyclerAdapter.ViewHolder>() {
@@ -55,7 +56,7 @@ class DeviceRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_content, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(LAYOUT_ID, parent, false)
         return ViewHolder(view)
     }
 
@@ -71,6 +72,10 @@ class DeviceRecyclerAdapter(
     }
 
     override fun getItemCount() = data.size
+
+    companion object {
+        private const val LAYOUT_ID: Int = R.layout.list_item_device
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val idView: TextView = view.findViewById(R.id.id_text)

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
@@ -18,8 +19,11 @@ class DeviceDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.item_detail, container, false)
-        val textView = rootView.findViewById<TextView>(R.id.item_detail)
+        val rootView = inflater.inflate(R.layout.fragment_device_detail, container, false)
+        val recycler = rootView.findViewById<RecyclerView>(R.id.item_list)
+        val adapter = LogRecyclerAdapter(activity!!)
+
+        recycler.adapter = adapter
 
         arguments?.let {
             if (it.containsKey(ARG_ITEM_ID)) {
@@ -27,7 +31,7 @@ class DeviceDetailFragment : Fragment() {
                 val deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
 
                 deviceViewModel.getLogForDevice(macAddress).observe(this,
-                    Observer<List<LogEntry>> { data -> dumpData(data, textView) })
+                    Observer<List<LogEntry>> { data -> adapter.setData(data) })
             }
         } ?: throw IllegalArgumentException("No $ARG_ITEM_ID was provided.")
 

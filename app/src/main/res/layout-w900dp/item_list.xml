@@ -28,7 +28,7 @@
                                                android:layout_marginRight="16dp"
                                                app:layoutManager="LinearLayoutManager"
                                                tools:context="uk.co.alt236.bluetoothconnectionlog.ui.main.DeviceListActivity"
-                                               tools:listitem="@layout/item_list_content"/>
+                                               tools:listitem="@layout/list_item_device"/>
 
     <FrameLayout
             android:id="@+id/item_detail_container"

@@ -27,7 +27,15 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/item_list"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/item_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:context=".ui.main.DeviceListActivity"
+                tools:listitem="@layout/list_item_device"/>
     </FrameLayout>
 
 
