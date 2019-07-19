@@ -2,6 +2,7 @@ package uk.co.alt236.bluetoothconnectionlog.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -53,15 +54,20 @@ class DeviceDetailActivity : AppCompatActivity() {
         }
     }
 
+    fun setPageTitle(title: CharSequence) {
+        setTitle(title)
+        if (supportActionBar == null) {
+            Log.d("Foo", "actionbar is null")
+            return
+        }
+
+        Log.d("Foo", "Setting title to '$title'")
+        supportActionBar?.title = title
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             android.R.id.home -> {
-                // This ID represents the Home or Up button. In the case of this
-                // activity, the Up button is shown. For
-                // more details, see the Navigation pattern on Android Design:
-                //
-                // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-
                 navigateUpTo(Intent(this, DeviceListActivity::class.java))
                 true
             }

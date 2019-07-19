@@ -62,8 +62,8 @@ class DeviceRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.idView.text = item.device_name
-        holder.contentView.text = item.mac_address
+        holder.name.text = item.device_name
+        holder.macAddress.text = item.mac_address
 
         with(holder.itemView) {
             tag = item
@@ -78,7 +78,7 @@ class DeviceRecyclerAdapter(
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.id_text)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val name: TextView = view.findViewById(R.id.name)
+        val macAddress: TextView = view.findViewById(R.id.macaddress)
     }
 }

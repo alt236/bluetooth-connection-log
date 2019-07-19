@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:background="?attr/selectableItemBackground"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:padding="6dp"
+                                                   android:orientation="horizontal" android:id="@+id/linearLayout">
+
+    <ImageView
+            android:id="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            tools:background="#c0c0c0"
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_action_show_map"/>
 
     <TextView
-            android:id="@+id/id_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/action"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"/>
+            android:lines="1"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image"
+            tools:text="action asdfasfsadf asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfasdfa asdfasdfasdf asdfsadf "/>
 
     <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
+            android:id="@+id/timestamp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"/>
-</LinearLayout>
+            android:textSize="14sp"
+            android:textAlignment="textStart"
+            android:lines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action"
+            app:layout_constraintEnd_toStartOf="@+id/image"
+            tools:text="timestamp asdfasfsadf asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfasdfa asdfasdfasdf asdfsadf "/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
