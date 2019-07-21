@@ -24,44 +24,51 @@ class DeviceDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         arguments?.let {
-            macAddress = it.getString(ARG_ITEM_ID) ?: throw IllegalArgumentException("No $ARG_ITEM_ID was provided.")
+            macAddress = it.getString(ARG_DEVICE_MAC_ADDRESS)
+                ?: throw IllegalArgumentException("No $ARG_DEVICE_MAC_ADDRESS was provided.")
+            val deviceName = it.getString(ARG_DEVICE_NAME)
+                ?: throw IllegalArgumentException("No $ARG_DEVICE_NAME was provided.")
+
+            updateTitle(macAddress, deviceName)
         } ?: throw IllegalArgumentException("No arguments were provided.")
 
+        val deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
         val rootView = inflater.inflate(R.layout.fragment_device_detail, container, false)
         val recycler = rootView.findViewById<RecyclerView>(R.id.item_list)
 
         adapter = LogRecyclerAdapter(activity!!)
         recycler.adapter = adapter
 
-        return rootView
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
 
         deviceViewModel.getLogForDevice(macAddress).observe(this,
             Observer<List<LogEntry>> { data ->
                 adapter.setData(data)
-                updateTitle(data)
             })
+        return rootView
     }
 
-    private fun updateTitle(data: List<LogEntry>) {
-        if (data.isEmpty()) {
-            return
+    private fun updateTitle(macAddress: String, deviceName: CharSequence) {
+        if (activity is DeviceDetailActivity) {
+            val trimmedName = deviceName.trim()
+            val title = if (trimmedName.isBlank()) macAddress else trimmedName
+            (activity as DeviceDetailActivity).setPageTitle(title)
         }
-
-        val item = data[0]
-        val title = if (item.device_name.isBlank()) item.mac_address else item.device_name
-        (activity as DeviceDetailActivity).setPageTitle(title.trim())
     }
 
     companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
-        const val ARG_ITEM_ID = "item_id"
+        private const val ARG_DEVICE_MAC_ADDRESS = "ARG_DEVICE_MAC_ADDRESS"
+        private const val ARG_DEVICE_NAME = "ARG_DEVICE_NAME"
+
+        fun createInstance(macAddress: String, deviceName: CharSequence): Fragment {
+            val fragment = DeviceDetailFragment()
+            val args = Bundle()
+
+            args.putString(ARG_DEVICE_MAC_ADDRESS, macAddress)
+            args.putCharSequence(ARG_DEVICE_NAME, deviceName)
+
+            fragment.arguments = args
+            return fragment
+
+        }
     }
 }

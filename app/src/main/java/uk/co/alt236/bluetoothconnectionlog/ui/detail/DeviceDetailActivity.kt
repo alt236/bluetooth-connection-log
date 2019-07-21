@@ -1,8 +1,8 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.detail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,30 +23,12 @@ class DeviceDetailActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.detail_toolbar)
         setSupportActionBar(toolbar)
-
-        // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            val fragment = DeviceDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(
-                        DeviceDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(DeviceDetailFragment.ARG_ITEM_ID)
-                    )
-                }
-            }
+            val macAddress = intent.getStringExtra(ARG_DEVICE_MAC_ADDRESS)
+            val deviceName = intent.getStringExtra(ARG_DEVICE_NAME)
+            val fragment = DeviceDetailFragment.createInstance(macAddress, deviceName)
 
             supportFragmentManager.beginTransaction()
                 .add(R.id.item_detail_container, fragment)
@@ -56,12 +38,6 @@ class DeviceDetailActivity : AppCompatActivity() {
 
     fun setPageTitle(title: CharSequence) {
         setTitle(title)
-        if (supportActionBar == null) {
-            Log.d("Foo", "actionbar is null")
-            return
-        }
-
-        Log.d("Foo", "Setting title to '$title'")
         supportActionBar?.title = title
     }
 
@@ -73,4 +49,21 @@ class DeviceDetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+
+    companion object {
+        private const val ARG_DEVICE_MAC_ADDRESS = "ARG_DEVICE_MAC_ADDRESS"
+        private const val ARG_DEVICE_NAME = "ARG_DEVICE_NAME"
+
+        fun createIntent(context: Context, macAddress: String, deviceName: CharSequence): Intent {
+            val intent = Intent(
+                context,
+                DeviceDetailActivity::class.java
+            )
+
+            intent.putExtra(ARG_DEVICE_MAC_ADDRESS, macAddress)
+            intent.putExtra(ARG_DEVICE_NAME, deviceName)
+
+            return intent
+        }
+    }
 }

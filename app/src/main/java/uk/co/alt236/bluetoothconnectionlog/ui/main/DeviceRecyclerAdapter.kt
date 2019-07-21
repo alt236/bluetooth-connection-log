@@ -1,7 +1,5 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.main
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,23 +26,13 @@ class DeviceRecyclerAdapter(
             val item = v.tag as LogDevice
 
             if (twoPane) {
-                val fragment = DeviceDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(DeviceDetailFragment.ARG_ITEM_ID, item.mac_address)
-                    }
-                }
+                val fragment = DeviceDetailFragment.createInstance(item.mac_address, item.device_name)
                 parentActivity.supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit()
             } else {
-                val intent = Intent(
-                    v.context,
-                    DeviceDetailActivity::class.java
-                ).apply {
-                    putExtra(DeviceDetailFragment.ARG_ITEM_ID, item.mac_address)
-                }
-
+                val intent = DeviceDetailActivity.createIntent(v.context, item.mac_address, item.device_name)
                 ContextCompat.startActivity(v.context, intent, null)
             }
         }
