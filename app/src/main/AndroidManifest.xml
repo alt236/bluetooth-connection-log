@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="false"
@@ -34,6 +35,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="uk.co.alt236.bluetoothconnectionlog.ui.main.DeviceListActivity"/>
         </activity>
+        <activity android:name=".ui.map.MapActivity"/>
 
         <receiver
                 android:name=".receiver.BluetoothConnectionReceiver"
