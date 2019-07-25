@@ -6,13 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import uk.co.alt236.bluetoothconnectionlog.db.converters.DeviceClassTypeConverter
 import uk.co.alt236.bluetoothconnectionlog.db.converters.EventTypeConverter
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 
 private const val DB_NAME = "bt_connection_events"
 
-@Database(entities = [LogEntry::class], version = 1)
-@TypeConverters(EventTypeConverter::class)
+@Database(entities = [LogEntry::class], version = 3)
+@TypeConverters(EventTypeConverter::class, DeviceClassTypeConverter::class)
 abstract class LogDatabase : RoomDatabase() {
 
     abstract fun entryDao(): LogEntryDao

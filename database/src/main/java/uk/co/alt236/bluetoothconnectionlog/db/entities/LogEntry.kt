@@ -21,6 +21,9 @@ data class LogEntry(
     @ColumnInfo(name = "device_name")
     val device_name: String,
 
+    @ColumnInfo(name = "device_class")
+    val device_class: DeviceClass,
+
     @Embedded(prefix = "location_")
     val location: Location
 ) {

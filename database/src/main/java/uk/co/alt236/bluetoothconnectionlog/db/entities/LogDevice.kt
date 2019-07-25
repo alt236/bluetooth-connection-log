@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 
 data class LogDevice(
 
+    @ColumnInfo(name = "device_class")
+    val device_major_class: DeviceClass,
+
     @ColumnInfo(name = "device_mac_address")
     val mac_address: String,
 

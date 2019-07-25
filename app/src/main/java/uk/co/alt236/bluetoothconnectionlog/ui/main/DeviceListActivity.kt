@@ -1,12 +1,14 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import uk.co.alt236.bluetoothconnectionlog.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
@@ -47,7 +49,12 @@ class DeviceListActivity : AppCompatActivity() {
 
         deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
         deviceViewModel.getAllDevices().observe(this,
-            Observer<List<LogDevice>> { data -> adapter.setData(data!!) })
+            Observer<List<LogDevice>> { data ->
+                if (BuildConfig.DEBUG) {
+                    Log.d(DeviceListActivity::class.java.simpleName, "DEVICES: $data")
+                }
+                adapter.setData(data!!)
+            })
 
         recyclerView.adapter = adapter
 
