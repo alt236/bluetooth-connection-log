@@ -7,7 +7,7 @@ import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.MapIntentFactory
 import java.util.*
 
-class ViewHolderBinder(private val activity: FragmentActivity) {
+internal class ViewHolderBinder(private val activity: FragmentActivity) {
     private val mapIntentFactory = MapIntentFactory(activity)
 
     private val onClickListener = View.OnClickListener { v ->

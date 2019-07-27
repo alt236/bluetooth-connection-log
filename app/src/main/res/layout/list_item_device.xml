@@ -10,14 +10,13 @@
 
     <ImageView
             android:id="@+id/image"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             tools:background="#c0c0c0"
             android:tint="@color/colorPrimary"
-            android:visibility="gone"
             app:srcCompat="@drawable/ic_action_show_map"/>
 
     <TextView
@@ -29,9 +28,10 @@
             android:textSize="16sp"
             android:textAlignment="textStart"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="action asdfasfsadf asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfasdfa asdfasdfasdf asdfsadf "/>
 
     <TextView
@@ -42,9 +42,10 @@
             android:textAlignment="textStart"
             android:lines="1"
             android:ellipsize="end"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="timestamp asdfasfsadf asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfasdfa asdfasdfasdf asdfsadf "/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,18 +1,22 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.detail.recycler
+package uk.co.alt236.bluetoothconnectionlog.ui.main.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 
-class LogRecyclerAdapter(parentActivity: FragmentActivity) :
+class DeviceRecyclerAdapter(
+    private val parentActivity: FragmentActivity,
+    private val twoPane: Boolean
+) :
     RecyclerView.Adapter<ViewHolder>() {
-    private val binder = ViewHolderBinder(parentActivity)
-    private var data: List<LogEntry> = ArrayList()
+
+    private val binder = ViewHolderBinder(parentActivity, twoPane)
+    private var data: List<LogDevice> = ArrayList()
 
 
-    fun setData(data: List<LogEntry>) {
+    fun setData(data: List<LogDevice>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -23,8 +27,7 @@ class LogRecyclerAdapter(parentActivity: FragmentActivity) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        binder.onBindViewHolder(holder, item)
+        binder.onBindViewHolder(holder, data[position])
     }
 
     override fun getItemCount() = data.size

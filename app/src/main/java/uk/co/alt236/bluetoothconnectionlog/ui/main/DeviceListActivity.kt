@@ -13,6 +13,7 @@ import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
+import uk.co.alt236.bluetoothconnectionlog.ui.main.recycler.DeviceRecyclerAdapter
 
 /**
  * An activity representing a list of Pings. This activity
