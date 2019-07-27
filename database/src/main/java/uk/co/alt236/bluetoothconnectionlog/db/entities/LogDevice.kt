@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 data class LogDevice(
 
     @ColumnInfo(name = "device_class")
-    val device_class: DeviceClass,
+    val device_class: BluetoothClass,
 
     @ColumnInfo(name = "device_mac_address")
     val mac_address: String,

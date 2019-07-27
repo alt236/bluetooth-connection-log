@@ -22,7 +22,7 @@ data class LogEntry(
     val device_name: String,
 
     @ColumnInfo(name = "device_class")
-    val device_class: DeviceClass,
+    val device_class: BluetoothClass,
 
     @Embedded(prefix = "location_")
     val location: Location

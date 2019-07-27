@@ -1,25 +1,23 @@
 package uk.co.alt236.bluetoothconnectionlog.db.converters
 
 import androidx.room.TypeConverter
-import uk.co.alt236.bluetoothconnectionlog.db.entities.DeviceClass
+import uk.co.alt236.bluetoothconnectionlog.db.entities.BluetoothClass
+import java.util.*
+
+private const val STRING_FORMAT = "%d|%d"
 
 class DeviceClassTypeConverter {
     @TypeConverter
-    fun classStringToEnum(value: String?): DeviceClass {
-        return if (value == null) {
-            DeviceClass.UNKNOWN
-        } else {
-            for (enum in DeviceClass.values()) {
-                if (enum.name == value) {
-                    return enum
-                }
-            }
-            return DeviceClass.UNKNOWN
-        }
+    fun stringToObject(value: String): BluetoothClass {
+        val array = value.split("|")
+        val deviceClass = Integer.valueOf(array[0])
+        val majorDeviceClass = Integer.valueOf(array[1])
+
+        return BluetoothClass(deviceClass = deviceClass, majorDeviceClass = majorDeviceClass)
     }
 
     @TypeConverter
-    fun classEnumToString(value: DeviceClass): String {
-        return value.name
+    fun objectToString(value: BluetoothClass): String {
+        return String.format(Locale.US, STRING_FORMAT, value.deviceClass, value.majorDeviceClass)
     }
 }
