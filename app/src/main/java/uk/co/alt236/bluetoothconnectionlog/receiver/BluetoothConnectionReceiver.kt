@@ -8,8 +8,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.preference.PreferenceManager
 import com.google.android.gms.location.LocationServices
+import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.repo.LogRepository
 
@@ -35,6 +38,32 @@ class BluetoothConnectionReceiver : BroadcastReceiver() {
         val logEntry = mapper.createLogEntry(device, action, System.currentTimeMillis())
         Log.d(TAG, "Device status changed: ${logEntry.event} - $device")
         writeEntry(context, logRepository, logEntry)
+        notify(context, action, logEntry)
+    }
+
+    private fun notify(context: Context, action: String, logEntry: LogEntry) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        when (action) {
+            BluetoothDevice.ACTION_ACL_CONNECTED -> {
+                if (preferences.getBoolean(context.getString(R.string.preference_key_notify_on_connection), false)) {
+                    val text = "BT device connected: '${logEntry.getDisplayName()}'"
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                }
+            }
+            BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
+                if (preferences.getBoolean(context.getString(R.string.preference_key_notify_on_disconnection), false)) {
+                    val text = "BT device disconnected: '${logEntry.getDisplayName()}'"
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                }
+            }
+            BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED -> {
+                if (preferences.getBoolean(context.getString(R.string.preference_key_notify_on_disconnection), false)) {
+                    val text = "BT device disconnect requested: '${logEntry.getDisplayName()}'"
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                }
+            }
+            else -> return
+        }
     }
 
     @SuppressLint("MissingPermission")

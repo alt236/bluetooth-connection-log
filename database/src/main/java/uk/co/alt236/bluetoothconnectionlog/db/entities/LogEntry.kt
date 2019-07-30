@@ -30,4 +30,9 @@ data class LogEntry(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+
+    fun getDisplayName(): String {
+        val trimmedName = device_name.trim()
+        return if (trimmedName.isBlank()) mac_address else trimmedName
+    }
 }

@@ -1,10 +1,14 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +18,7 @@ import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.main.recycler.DeviceRecyclerAdapter
+import uk.co.alt236.bluetoothconnectionlog.ui.settings.SettingsActivity
 
 /**
  * An activity representing a list of Pings. This activity
@@ -64,4 +69,18 @@ class DeviceListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        return if (id == R.id.action_settings) {
+            val intent = Intent(this, SettingsActivity::class.java)
+            ContextCompat.startActivity(this, intent, null)
+            true
+        } else super.onOptionsItemSelected(item)
+    }
 }
