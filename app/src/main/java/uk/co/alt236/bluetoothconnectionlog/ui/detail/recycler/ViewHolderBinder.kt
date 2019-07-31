@@ -5,10 +5,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.MapIntentFactory
-import java.util.*
 
 internal class ViewHolderBinder(private val activity: FragmentActivity) {
     private val mapIntentFactory = MapIntentFactory(activity)
+    private val dateFormatter = DateFormatter(activity)
 
     private val onClickListener = View.OnClickListener { v ->
         val item = v.tag as LogEntry
@@ -24,7 +24,7 @@ internal class ViewHolderBinder(private val activity: FragmentActivity) {
 
     fun onBindViewHolder(holder: ViewHolder, item: LogEntry) {
         holder.action.text = item.event.toString()
-        holder.timestamp.text = Date(item.timestamp).toString()
+        holder.timestamp.text = dateFormatter.format(item.timestamp)
 
         if (item.location.valid) {
             holder.image.visibility = View.VISIBLE

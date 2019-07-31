@@ -57,7 +57,12 @@ class DeviceListActivity : AppCompatActivity() {
         deviceViewModel.getAllDevices().observe(this,
             Observer<List<LogDevice>> { data ->
                 if (BuildConfig.DEBUG) {
-                    Log.d(DeviceListActivity::class.java.simpleName, "DEVICES: $data")
+                    val sb = StringBuilder()
+                    for (device in data) {
+                        sb.append(device.toString())
+                        sb.append('\n')
+                    }
+                    Log.d(DeviceListActivity::class.java.simpleName, "DEVICES: $sb")
                 }
                 adapter.setData(data!!)
             })
