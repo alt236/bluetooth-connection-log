@@ -15,8 +15,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            tools:background="#c0c0c0"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/colorAccent"
             app:srcCompat="@drawable/ic_action_show_map"/>
 
     <TextView

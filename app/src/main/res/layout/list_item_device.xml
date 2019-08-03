@@ -15,9 +15,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            tools:background="#c0c0c0"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_action_show_map"/>
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_device_bluetooth_32dp"/>
 
     <TextView
             android:id="@+id/name"

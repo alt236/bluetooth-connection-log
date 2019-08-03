@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Bluetooth Connection Log</string>
 
+    <string name="formatter_device_count">Devices: %d</string>
+    <string name="label_bluetooth_status">Bluetooth:</string>
+    <string name="label_location_permission">Location Access</string>
+    <string name="permission_denied">Denied</string>
+    <string name="permission_granted">Granted</string>
+    <string name="permission_granted_foreground_only">Granted - Foreground only</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+
     <!-- Activity Titles -->
     <string name="title_item_detail">Connection Log</string>
     <string name="title_activity_settings">Settings</string>

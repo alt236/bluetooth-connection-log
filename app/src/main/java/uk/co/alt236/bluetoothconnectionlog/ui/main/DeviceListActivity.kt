@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -16,18 +17,9 @@ import uk.co.alt236.bluetoothconnectionlog.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
-import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.main.recycler.DeviceRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.settings.SettingsActivity
 
-/**
- * An activity representing a list of Pings. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a [DeviceDetailActivity] representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
 class DeviceListActivity : AppCompatActivity() {
 
     /**
@@ -36,10 +28,17 @@ class DeviceListActivity : AppCompatActivity() {
      */
     private var twoPane: Boolean = false
     private lateinit var deviceViewModel: LogEntryViewModel
+    private lateinit var permissionCheck: LocationPermissionCheck
+    private lateinit var tvLocationStatus: TextView
+    private lateinit var tvBtStatus: TextView
+    private lateinit var tvItemCount: TextView
+    private lateinit var btCheck: BluetoothStatusCheck
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_list)
+        permissionCheck = LocationPermissionCheck(this)
+        btCheck = BluetoothStatusCheck(this)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val recyclerView = findViewById<RecyclerView>(R.id.item_list)
@@ -47,6 +46,10 @@ class DeviceListActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         toolbar.title = title
+
+        tvLocationStatus = findViewById(R.id.tvLocationStatus)
+        tvBtStatus = findViewById(R.id.tvBluetoothStatus)
+        tvItemCount = findViewById(R.id.tvItemCount)
 
         val adapter = DeviceRecyclerAdapter(
             this,
@@ -65,12 +68,35 @@ class DeviceListActivity : AppCompatActivity() {
                     Log.d(DeviceListActivity::class.java.simpleName, "DEVICES: $sb")
                 }
                 adapter.setData(data!!)
+                tvItemCount.text = getString(R.string.formatter_device_count, data.size)
             })
 
         recyclerView.adapter = adapter
 
         if (itemDetailContainer != null) {
             twoPane = true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (btCheck.isBluetoothOn()) {
+            tvBtStatus.setText(R.string.on)
+        } else {
+            tvBtStatus.setText(R.string.off)
+        }
+
+        when (permissionCheck.checkLocationPermission()) {
+            LocationPermissionCheck.Result.GRANTED -> {
+                tvLocationStatus.setText(R.string.permission_granted)
+            }
+            LocationPermissionCheck.Result.GRANTED_FOREGROUND_ONLY -> {
+                tvLocationStatus.setText(R.string.permission_granted_foreground_only)
+            }
+            LocationPermissionCheck.Result.DENIED -> {
+                tvLocationStatus.setText(R.string.permission_denied)
+            }
         }
     }
 
