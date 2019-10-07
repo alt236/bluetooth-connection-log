@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -22,7 +23,7 @@
                 android:label="@string/title_activity_settings">
         </activity>
         <activity
-                android:name=".ui.main.DeviceListActivity"
+                android:name=".ui.main.MainActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -34,13 +35,14 @@
         <activity
                 android:name=".ui.detail.DeviceDetailActivity"
                 android:label="@string/title_item_detail"
-                android:parentActivityName=".ui.main.DeviceListActivity"
+                android:parentActivityName=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="uk.co.alt236.bluetoothconnectionlog.ui.main.DeviceListActivity"/>
+                    android:value="uk.co.alt236.bluetoothconnectionlog.ui.main.MainActivity" />
         </activity>
         <activity android:name=".ui.map.MapActivity"/>
+        <activity android:name=".ui.onboarding.OnBoardingActivity" />
 
         <receiver
                 android:name=".receiver.BluetoothConnectionReceiver"

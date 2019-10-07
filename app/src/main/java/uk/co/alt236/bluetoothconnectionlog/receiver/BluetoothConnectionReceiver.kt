@@ -57,7 +57,11 @@ class BluetoothConnectionReceiver : BroadcastReceiver() {
                 }
             }
             BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED -> {
-                if (preferences.getBoolean(context.getString(R.string.preference_key_notify_on_disconnection), false)) {
+                if (preferences.getBoolean(
+                        context.getString(R.string.preference_key_notify_on_disconnection_request),
+                        false
+                    )
+                ) {
                     val text = "BT device disconnect requested: '${logEntry.getDisplayName()}'"
                     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                 }

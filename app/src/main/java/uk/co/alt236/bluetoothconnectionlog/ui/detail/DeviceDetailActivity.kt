@@ -7,14 +7,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import uk.co.alt236.bluetoothconnectionlog.R
-import uk.co.alt236.bluetoothconnectionlog.ui.main.DeviceListActivity
+import uk.co.alt236.bluetoothconnectionlog.ui.main.MainActivity
 
-/**
- * An activity representing a single Item detail screen. This
- * activity is only used on narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a [DeviceListActivity].
- */
 class DeviceDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +20,8 @@ class DeviceDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState == null) {
-            val macAddress = intent.getStringExtra(ARG_DEVICE_MAC_ADDRESS)
-            val deviceName = intent.getStringExtra(ARG_DEVICE_NAME)
+            val macAddress = intent.getStringExtra(ARG_DEVICE_MAC_ADDRESS)!!
+            val deviceName = intent.getStringExtra(ARG_DEVICE_NAME)!!
             val fragment = DeviceDetailFragment.createInstance(macAddress, deviceName)
 
             supportFragmentManager.beginTransaction()
@@ -44,7 +38,7 @@ class DeviceDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             android.R.id.home -> {
-                navigateUpTo(Intent(this, DeviceListActivity::class.java))
+                navigateUpTo(Intent(this, MainActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
