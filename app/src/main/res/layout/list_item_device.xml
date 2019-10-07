@@ -16,7 +16,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:tint="@color/colorAccent"
-            app:srcCompat="@drawable/ic_device_bluetooth_32dp"/>
+            app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
             android:id="@+id/name"

@@ -7,6 +7,7 @@ import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailFragment
+import uk.co.alt236.btdeviceinfo.DeviceIconMapper
 
 internal class ViewHolderBinder(private val activity: FragmentActivity, private val twoPane: Boolean) {
     private val iconMapper = DeviceIconMapper()
@@ -35,5 +36,9 @@ internal class ViewHolderBinder(private val activity: FragmentActivity, private 
             tag = item
             setOnClickListener(onClickListener)
         }
+    }
+
+    private fun DeviceIconMapper.getImage(item: LogDevice): Int {
+        return getImage(item.device_class.deviceClass, item.device_class.majorDeviceClass)
     }
 }

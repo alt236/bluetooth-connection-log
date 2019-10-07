@@ -1,20 +1,34 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.main.recycler
+@file:Suppress("unused")
 
+package uk.co.alt236.btdeviceinfo
+
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothClass
+import android.bluetooth.BluetoothDevice
 import android.util.Log
 import androidx.annotation.DrawableRes
-import uk.co.alt236.bluetoothconnectionlog.R
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 
 // These are @hidden in Android's BluetoothDevice class
 private const val PERIPHERAL_KEYBOARD = 0x0540
 private const val PERIPHERAL_POINTING = 0x0580
 private const val PERIPHERAL_KEYBOARD_POINTING = 0x05C0
 
-internal class DeviceIconMapper {
+class DeviceIconMapper {
+
+    @SuppressLint("MissingPermission")
     @DrawableRes
-    fun getImage(item: LogDevice): Int {
-        return when (item.device_class.deviceClass) {
+    fun getImage(device: BluetoothDevice): Int {
+        return getImage(device.bluetoothClass)
+    }
+
+    @DrawableRes
+    fun getImage(deviceClass: BluetoothClass): Int {
+        return getImage(deviceClass.deviceClass, deviceClass.majorDeviceClass)
+    }
+
+    @DrawableRes
+    fun getImage(deviceClass: Int, majorDeviceClass: Int): Int {
+        return when (deviceClass) {
             BluetoothClass.Device.AUDIO_VIDEO_CAR_AUDIO -> R.drawable.ic_device_car_32dp
             BluetoothClass.Device.AUDIO_VIDEO_HANDSFREE -> R.drawable.ic_device_headset_mic_32dp
             BluetoothClass.Device.AUDIO_VIDEO_HEADPHONES -> R.drawable.ic_device_headset_32dp
@@ -38,15 +52,14 @@ internal class DeviceIconMapper {
             PERIPHERAL_POINTING -> R.drawable.ic_device_mouse_32dp
 
             // Try to get a high level icon
-            else -> getImageFromMajorClass(item)
+            else -> getImageFromMajorClass(deviceClass, majorDeviceClass)
         }
     }
 
     @DrawableRes
-    private fun getImageFromMajorClass(item: LogDevice): Int {
-        val deviceClass = item.device_class.deviceClass
+    private fun getImageFromMajorClass(deviceClass: Int, majorDeviceClass: Int): Int {
 
-        return when (val majorClass = item.device_class.majorDeviceClass) {
+        return when (majorDeviceClass) {
             BluetoothClass.Device.Major.HEALTH -> R.drawable.ic_device_health_32dp
             BluetoothClass.Device.Major.IMAGING -> R.drawable.ic_device_imaging_32dp
             BluetoothClass.Device.Major.NETWORKING -> R.drawable.ic_device_networking_32dp
@@ -57,7 +70,7 @@ internal class DeviceIconMapper {
             else -> {
                 Log.d(
                     DeviceIconMapper::class.java.simpleName,
-                    "Did not have an icon for '${item.device_name}' with class: ${deviceClass.toHexString()}/${majorClass.toHexString()}"
+                    "Did not have an icon for device with class: ${deviceClass.toHexString()}/${majorDeviceClass.toHexString()}"
                 )
                 R.drawable.ic_device_bluetooth_32dp
             }
