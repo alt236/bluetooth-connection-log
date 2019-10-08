@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.MapTileProviderBasic
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.MinimapOverlay
@@ -58,7 +59,10 @@ class MapActivity : AppCompatActivity() {
     }
 
     private fun setupMapView(map: MapView) {
-        map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
+        val tileProvider = MapTileProviderBasic(this, TileSourceFactory.DEFAULT_TILE_SOURCE)
+        tileProvider.setOfflineFirst(false)
+
+        map.tileProvider = tileProvider
         map.setMultiTouchControls(true)
 
         val minimapOverlay = MinimapOverlay(this, map.tileRequestCompleteHandler)
