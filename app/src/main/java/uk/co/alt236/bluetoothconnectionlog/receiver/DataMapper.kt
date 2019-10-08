@@ -2,10 +2,7 @@ package uk.co.alt236.bluetoothconnectionlog.receiver
 
 import android.bluetooth.BluetoothDevice
 import android.os.Build
-import uk.co.alt236.bluetoothconnectionlog.db.entities.BluetoothClass
-import uk.co.alt236.bluetoothconnectionlog.db.entities.Event
-import uk.co.alt236.bluetoothconnectionlog.db.entities.Location
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.db.entities.*
 
 class DataMapper {
 
@@ -14,13 +11,17 @@ class DataMapper {
         event: String,
         timestamp: Long
     ): LogEntry {
+        val btDevice = BtDevice(
+            name = device.name,
+            macAddress = device.address,
+            bluetoothClass = BluetoothClass(device.bluetoothClass)
+        )
+
         return LogEntry(
-            device_name = device.name,
-            mac_address = device.address,
             timestamp = timestamp,
             event = bluetoothConnectionEventToAEnum(event),
-            device_class = BluetoothClass(device.bluetoothClass),
-            location = Location.createInvalid()
+            location = Location.INVALID,
+            device = btDevice
         )
     }
 
@@ -39,12 +40,10 @@ class DataMapper {
         )
 
         return LogEntry(
-            device_name = logEntry.device_name,
-            mac_address = logEntry.mac_address,
             timestamp = logEntry.timestamp,
             event = logEntry.event,
-            device_class = logEntry.device_class,
-            location = location
+            location = location,
+            device = logEntry.device
         )
     }
 

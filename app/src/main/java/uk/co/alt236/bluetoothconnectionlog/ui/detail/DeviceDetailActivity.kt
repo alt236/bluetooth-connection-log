@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import uk.co.alt236.bluetoothconnectionlog.R
+import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.main.MainActivity
 
 class DeviceDetailActivity : AppCompatActivity() {
@@ -20,9 +21,8 @@ class DeviceDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState == null) {
-            val macAddress = intent.getStringExtra(ARG_DEVICE_MAC_ADDRESS)!!
-            val deviceName = intent.getStringExtra(ARG_DEVICE_NAME)!!
-            val fragment = DeviceDetailFragment.createInstance(macAddress, deviceName)
+            val btDevice = intent.getSerializableExtra(ARG_DEVICE) as BtDevice
+            val fragment = DeviceDetailFragment.createInstance(btDevice)
 
             supportFragmentManager.beginTransaction()
                 .add(R.id.item_detail_container, fragment)
@@ -45,17 +45,15 @@ class DeviceDetailActivity : AppCompatActivity() {
         }
 
     companion object {
-        private const val ARG_DEVICE_MAC_ADDRESS = "ARG_DEVICE_MAC_ADDRESS"
-        private const val ARG_DEVICE_NAME = "ARG_DEVICE_NAME"
+        private const val ARG_DEVICE = "ARG_DEVICE"
 
-        fun createIntent(context: Context, macAddress: String, deviceName: CharSequence): Intent {
+        fun createIntent(context: Context, btDevice: BtDevice): Intent {
             val intent = Intent(
                 context,
                 DeviceDetailActivity::class.java
             )
 
-            intent.putExtra(ARG_DEVICE_MAC_ADDRESS, macAddress)
-            intent.putExtra(ARG_DEVICE_NAME, deviceName)
+            intent.putExtra(ARG_DEVICE, btDevice)
 
             return intent
         }

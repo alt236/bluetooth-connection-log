@@ -12,7 +12,7 @@ import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 
 private const val DB_NAME = "bt_connection_events"
 
-@Database(entities = [LogEntry::class], version = 4)
+@Database(entities = [LogEntry::class], version = 5)
 @TypeConverters(EventTypeConverter::class, DeviceClassTypeConverter::class)
 abstract class LogDatabase : RoomDatabase() {
 

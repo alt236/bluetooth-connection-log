@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import uk.co.alt236.bluetoothconnectionlog.R
+import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.recycler.LogRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.Navigator
+import java.io.Serializable
 
 class DeviceDetailFragment : Fragment() {
 
@@ -20,9 +22,8 @@ class DeviceDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val macAddress = arguments.getStringOrThrow(ARG_DEVICE_MAC_ADDRESS)
-        val deviceName = arguments.getStringOrThrow(ARG_DEVICE_NAME)
-        updateTitle(macAddress, deviceName)
+        val btDevice: BtDevice = arguments.getSerializableOrThrow(ARG_DEVICE) as BtDevice
+        updateTitle(btDevice)
 
         val deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
         val rootView = inflater.inflate(R.layout.fragment_device_detail, container, false)
@@ -32,38 +33,37 @@ class DeviceDetailFragment : Fragment() {
         val adapter = LogRecyclerAdapter(activity!!, navigator)
         recycler.adapter = adapter
 
-        deviceViewModel.getLogForDevice(macAddress).observe(this,
+        deviceViewModel.getLogForDevice(btDevice.macAddress).observe(
+            this,
             Observer<List<LogEntry>> { data ->
                 adapter.setData(data)
             })
         return rootView
     }
 
-    private fun updateTitle(macAddress: String, deviceName: CharSequence) {
+    private fun updateTitle(btDevice: BtDevice) {
         if (activity is DeviceDetailActivity) {
-            val trimmedName = deviceName.trim()
-            val title = if (trimmedName.isBlank()) macAddress else trimmedName
+            val trimmedName = btDevice.name.trim()
+            val title = if (trimmedName.isBlank()) btDevice.macAddress else trimmedName
             (activity as DeviceDetailActivity).setPageTitle(title)
         }
     }
 
-    private fun Bundle?.getStringOrThrow(key: String): String {
+    private fun Bundle?.getSerializableOrThrow(key: String): Serializable {
         checkNotNull(this) { "No Arguments were found" }
 
-        return getString(key)
+        return getSerializable(key)
             ?: throw IllegalArgumentException("No $key was provided.")
     }
 
     companion object {
-        private const val ARG_DEVICE_MAC_ADDRESS = "ARG_DEVICE_MAC_ADDRESS"
-        private const val ARG_DEVICE_NAME = "ARG_DEVICE_NAME"
+        private const val ARG_DEVICE = "ARG_DEVICE"
 
-        fun createInstance(macAddress: String, deviceName: CharSequence): Fragment {
+        fun createInstance(btDevice: BtDevice): Fragment {
             val fragment = DeviceDetailFragment()
             val args = Bundle()
 
-            args.putString(ARG_DEVICE_MAC_ADDRESS, macAddress)
-            args.putCharSequence(ARG_DEVICE_NAME, deviceName)
+            args.putSerializable(ARG_DEVICE, btDevice)
 
             fragment.arguments = args
             return fragment

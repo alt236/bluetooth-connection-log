@@ -16,20 +16,20 @@ internal class ViewHolderBinder(private val activity: FragmentActivity, private 
         val item = v.tag as LogDevice
 
         if (twoPane) {
-            val fragment = DeviceDetailFragment.createInstance(item.mac_address, item.device_name)
+            val fragment = DeviceDetailFragment.createInstance(item.device)
             activity.supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.item_detail_container, fragment)
                 .commit()
         } else {
-            val intent = DeviceDetailActivity.createIntent(v.context, item.mac_address, item.device_name)
+            val intent = DeviceDetailActivity.createIntent(v.context, item.device)
             ContextCompat.startActivity(v.context, intent, null)
         }
     }
 
     fun onBindViewHolder(holder: ViewHolder, item: LogDevice) {
-        holder.name.text = item.device_name
-        holder.macAddress.text = item.mac_address
+        holder.name.text = item.device.name
+        holder.macAddress.text = item.device.macAddress
         holder.image.setImageResource(iconMapper.getImage(item))
 
         with(holder.itemView) {
@@ -39,6 +39,9 @@ internal class ViewHolderBinder(private val activity: FragmentActivity, private 
     }
 
     private fun DeviceIconMapper.getImage(item: LogDevice): Int {
-        return getImage(item.device_class.deviceClass, item.device_class.majorDeviceClass)
+        return getImage(
+            item.device.bluetoothClass.deviceClass,
+            item.device.bluetoothClass.majorDeviceClass
+        )
     }
 }

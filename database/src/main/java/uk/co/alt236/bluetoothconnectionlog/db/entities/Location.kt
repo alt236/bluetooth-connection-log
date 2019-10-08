@@ -1,6 +1,7 @@
 package uk.co.alt236.bluetoothconnectionlog.db.entities
 
 import androidx.room.ColumnInfo
+import java.io.Serializable
 
 class Location(
     @ColumnInfo(name = "valid")
@@ -19,18 +20,18 @@ class Location(
     val horizontalAccuracy: Float,
     @ColumnInfo(name = "accuracy_vertical")
     val verticalAccuracy: Float
-) {
+) : Serializable {
     companion object {
-        fun createInvalid(): Location {
-            return Location(
-                valid = false,
-                latitude = 0.0,
-                longitude = 0.0,
-                altitude = 0.0,
-                timestamp = 0,
-                horizontalAccuracy = 0.0f,
-                verticalAccuracy = 0.0f
-            )
-        }
+
+        @JvmField
+        val INVALID = Location(
+            valid = false,
+            latitude = 0.0,
+            longitude = 0.0,
+            altitude = 0.0,
+            timestamp = 0,
+            horizontalAccuracy = 0.0f,
+            verticalAccuracy = 0.0f
+        )
     }
 }

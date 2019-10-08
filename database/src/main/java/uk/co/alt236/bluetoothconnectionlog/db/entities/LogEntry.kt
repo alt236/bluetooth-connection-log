@@ -15,14 +15,8 @@ data class LogEntry(
     @ColumnInfo(name = "timestamp")
     val timestamp: Long,
 
-    @ColumnInfo(name = "device_mac_address")
-    val mac_address: String,
-
-    @ColumnInfo(name = "device_name")
-    val device_name: String,
-
-    @ColumnInfo(name = "device_class")
-    val device_class: BluetoothClass,
+    @Embedded(prefix = "device_")
+    val device: BtDevice,
 
     @Embedded(prefix = "location_")
     val location: Location
@@ -32,7 +26,7 @@ data class LogEntry(
     var id: Int = 0
 
     fun getDisplayName(): String {
-        val trimmedName = device_name.trim()
-        return if (trimmedName.isBlank()) mac_address else trimmedName
+        val trimmedName = device.name.trim()
+        return if (trimmedName.isBlank()) device.macAddress else trimmedName
     }
 }
