@@ -16,7 +16,7 @@ internal class ViewHolderBinder(
         val item = v.tag as LogEntry
 
         if (item.location.valid) {
-            navigator.openMap(item.location)
+            navigator.openMap(item.device, item.location)
         }
     }
 

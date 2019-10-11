@@ -11,10 +11,8 @@ private const val USE_GOOGLE_MAPS = false
 
 class MapIntentFactory(private val context: Context) {
 
-    fun createIntent(location: Location): Intent {
-        if (!location.valid) {
-            throw IllegalArgumentException("Passed location is not valid!")
-        }
+    fun createIntent(deviceName: String, location: Location): Intent {
+        require(location.valid) { "Passed location is not valid!" }
 
         Log.d(
             MapIntentFactory::class.java.simpleName,
@@ -27,7 +25,7 @@ class MapIntentFactory(private val context: Context) {
             intent.setPackage("com.google.android.apps.maps")
             intent
         } else {
-            MapActivity.createIntent(context, location)
+            MapActivity.createIntent(context, deviceName, location)
         }
     }
 

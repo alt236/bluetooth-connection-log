@@ -12,4 +12,10 @@ data class BtDevice(
 
     @ColumnInfo(name = "name")
     val name: String
-) : Serializable
+) : Serializable {
+
+    fun getFriendlyName(): String {
+        val trimmedName = name.trim()
+        return if (trimmedName.isBlank()) macAddress else trimmedName
+    }
+}

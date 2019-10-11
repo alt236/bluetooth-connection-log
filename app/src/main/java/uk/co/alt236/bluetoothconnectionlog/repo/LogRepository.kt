@@ -8,7 +8,7 @@ import uk.co.alt236.bluetoothconnectionlog.db.LogEntryDao
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 
-class LogRepository(private val context: Context) {
+class LogRepository(context: Context) {
 
     private var logDao: LogEntryDao
 

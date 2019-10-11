@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.Settings
 import android.util.Log
 import androidx.core.content.ContextCompat
+import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.Location
 import uk.co.alt236.bluetoothconnectionlog.ui.onboarding.OnBoardingActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.settings.SettingsActivity
@@ -34,8 +35,8 @@ class Navigator(private val context: Context) {
         startActivity(intent)
     }
 
-    fun openMap(location: Location) {
-        val intent = mapIntentFactory.createIntent(location)
+    fun openMap(device: BtDevice, location: Location) {
+        val intent = mapIntentFactory.createIntent(device.getFriendlyName(), location)
         startActivity(intent)
     }
 

@@ -43,9 +43,7 @@ class DeviceDetailFragment : Fragment() {
 
     private fun updateTitle(btDevice: BtDevice) {
         if (activity is DeviceDetailActivity) {
-            val trimmedName = btDevice.name.trim()
-            val title = if (trimmedName.isBlank()) btDevice.macAddress else trimmedName
-            (activity as DeviceDetailActivity).setPageTitle(title)
+            (activity as DeviceDetailActivity).setPageTitle(btDevice.getFriendlyName())
         }
     }
 
