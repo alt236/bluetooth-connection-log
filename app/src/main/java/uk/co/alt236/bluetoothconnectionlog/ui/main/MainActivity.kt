@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import uk.co.alt236.bluetoothconnectionlog.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.R
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
+import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.main.recycler.DeviceRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.Navigator
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
         deviceViewModel.getAllDevices().observe(this,
-            Observer<List<LogDevice>> { data ->
+            Observer<List<PersonalisedLogDevice>> { data ->
                 if (BuildConfig.DEBUG) {
                     val sb = StringBuilder()
                     for (device in data) {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.detail.DeviceDetailActivity">
+
+    <item
+            android:id="@+id/action_favorite"
+            android:icon="@drawable/ic_action_favourite"
+            android:title="@string/menu_item_favourite"
+            android:visible="false"
+            app:showAsAction="always" />
+
+    <item
+            android:id="@+id/action_not_favorite"
+            android:icon="@drawable/ic_action_not_favourite"
+            android:title="@string/menu_item_not_favourite"
+            android:visible="false"
+            app:showAsAction="always" />
+</menu>

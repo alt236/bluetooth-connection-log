@@ -35,14 +35,15 @@ class DeviceDetailActivity : AppCompatActivity() {
         supportActionBar?.title = title
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             android.R.id.home -> {
                 navigateUpTo(Intent(this, MainActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
     companion object {
         private const val ARG_DEVICE = "ARG_DEVICE"

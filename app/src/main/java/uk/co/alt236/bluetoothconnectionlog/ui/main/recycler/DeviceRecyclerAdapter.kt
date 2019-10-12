@@ -4,19 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
+import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
 
 class DeviceRecyclerAdapter(
-    private val parentActivity: FragmentActivity,
-    private val twoPane: Boolean
+    parentActivity: FragmentActivity,
+    twoPane: Boolean
 ) :
     RecyclerView.Adapter<ViewHolder>() {
 
     private val binder = ViewHolderBinder(parentActivity, twoPane)
-    private var data: List<LogDevice> = ArrayList()
+    private var data: List<PersonalisedLogDevice> = ArrayList()
 
 
-    fun setData(data: List<LogDevice>) {
+    fun setData(data: List<PersonalisedLogDevice>) {
         this.data = data
         notifyDataSetChanged()
     }

@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import uk.co.alt236.bluetoothconnectionlog.db.LogDatabase
 import uk.co.alt236.bluetoothconnectionlog.db.LogEntryDao
+import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 
@@ -29,11 +30,20 @@ class LogRepository(context: Context) {
         return logDao.getAllDevices()
     }
 
+    fun getLogForDevice(device: LogDevice): LiveData<List<LogEntry>> {
+        return getLogForDevice(device.device)
+    }
+
+    fun getLogForDevice(device: BtDevice): LiveData<List<LogEntry>> {
+        return getLogForDevice(device.macAddress)
+    }
+
     fun getLogForDevice(macAddress: String): LiveData<List<LogEntry>> {
         return logDao.getLogForDevice(macAddress)
     }
 
-    private class InsertAsyncTask(private val logDao: LogEntryDao) : AsyncTask<LogEntry, Void, Void>() {
+    private class InsertAsyncTask(private val logDao: LogEntryDao) :
+        AsyncTask<LogEntry, Void, Void>() {
         override fun doInBackground(vararg logEntries: LogEntry): Void? {
             logDao.insert(logEntries[0])
             return null

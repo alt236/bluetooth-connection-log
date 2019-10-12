@@ -8,4 +8,9 @@
     <color name="colorAccent">#F06292</color>
 
     <color name="colorSeparator">@color/colorAccent</color>
+
+
+    <color name="item_favourite">#4CAF50</color>
+    <color name="item_unfavourite">@color/colorAccent</color>
+
 </resources>

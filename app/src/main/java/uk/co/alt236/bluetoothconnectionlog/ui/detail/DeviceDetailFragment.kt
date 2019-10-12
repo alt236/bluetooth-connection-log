@@ -1,9 +1,7 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,32 +16,71 @@ import java.io.Serializable
 
 class DeviceDetailFragment : Fragment() {
 
+    private lateinit var viewModel: LogEntryViewModel
+    private lateinit var btDevice: BtDevice
+    private var isFav: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val btDevice: BtDevice = arguments.getSerializableOrThrow(ARG_DEVICE) as BtDevice
-        updateTitle(btDevice)
-
-        val deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
+        btDevice = arguments.getSerializableOrThrow(ARG_DEVICE) as BtDevice
+        viewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
         val rootView = inflater.inflate(R.layout.fragment_device_detail, container, false)
+
+        updateTitle(btDevice)
+        setHasOptionsMenu(true)
+
         val recycler = rootView.findViewById<RecyclerView>(R.id.item_list)
 
         val navigator = Navigator(activity!!)
         val adapter = LogRecyclerAdapter(activity!!, navigator)
         recycler.adapter = adapter
 
-        deviceViewModel.getLogForDevice(btDevice.macAddress).observe(
+        viewModel.getLogForDevice(btDevice).observe(
             this,
             Observer<List<LogEntry>> { data ->
                 adapter.setData(data)
             })
+
+        viewModel.getFavStatusForDevice(btDevice).observe(
+            this,
+            Observer<Boolean> { fav ->
+                isFav = fav
+                activity?.invalidateOptionsMenu()
+            }
+        )
         return rootView
     }
 
     private fun updateTitle(btDevice: BtDevice) {
         if (activity is DeviceDetailActivity) {
             (activity as DeviceDetailActivity).setPageTitle(btDevice.getFriendlyName())
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_details, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_not_favorite).isVisible = !isFav
+        menu.findItem(R.id.action_favorite).isVisible = isFav
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_favorite -> {
+                viewModel.removeFromFavourites(btDevice)
+                true
+            }
+
+            R.id.action_not_favorite -> {
+                viewModel.addToFavourites(btDevice)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
