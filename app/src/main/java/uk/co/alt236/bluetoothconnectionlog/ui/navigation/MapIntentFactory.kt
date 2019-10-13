@@ -5,8 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import uk.co.alt236.bluetoothconnectionlog.db.entities.Location
-import uk.co.alt236.bluetoothconnectionlog.ui.map.MapActivity
-import uk.co.alt236.bluetoothconnectionlog.ui.map.Poi
 
 private const val USE_GOOGLE_MAPS = false
 
@@ -27,8 +25,13 @@ class MapIntentFactory(private val context: Context) {
             intent
         } else {
             val poi =
-                Poi(deviceName, location.latitude, location.longitude, location.horizontalAccuracy)
-            MapActivity.createIntent(context, poi)
+                uk.co.alt236.bluetoothconnectionlog.map.Poi(
+                    deviceName,
+                    location.latitude,
+                    location.longitude,
+                    location.horizontalAccuracy
+                )
+            uk.co.alt236.bluetoothconnectionlog.map.MapActivity.createIntent(context, poi)
         }
     }
 

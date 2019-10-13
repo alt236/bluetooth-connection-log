@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.map
+package uk.co.alt236.bluetoothconnectionlog.map
 
 import org.osmdroid.tileprovider.MapTileProviderBasic
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -6,6 +6,8 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.MinimapOverlay
 import org.osmdroid.views.overlay.OverlayItem
+import uk.co.alt236.bluetoothconnectionlog.map.overlays.AccurateGeoPoint
+import uk.co.alt236.bluetoothconnectionlog.map.overlays.CirclePlottingOverlay2
 
 internal class MapWrapper(private val map: MapView) {
 
@@ -36,7 +38,12 @@ internal class MapWrapper(private val map: MapView) {
         val items = ArrayList<OverlayItem>()
         items.add(OverlayItem("Title", "Description", geoPoint))
 
-        val overlay = CirclePlottingOverlay2(map.context, items, null)
+        val overlay =
+            CirclePlottingOverlay2(
+                map.context,
+                items,
+                null
+            )
 
         map.overlays.add(overlay)
         map.controller.zoomTo(TARGET_ZOOM_LEVEL)

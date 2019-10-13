@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.map
+package uk.co.alt236.bluetoothconnectionlog.map
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import org.osmdroid.config.Configuration
 import org.osmdroid.views.MapView
-import uk.co.alt236.bluetoothconnectionlog.BuildConfig
-import uk.co.alt236.bluetoothconnectionlog.R
 
 class MapActivity : AppCompatActivity() {
 
@@ -63,7 +61,8 @@ class MapActivity : AppCompatActivity() {
     companion object {
         private val TAG = MapActivity::class.java.simpleName
         private const val ARG_POI = "ARG_POI"
-        private const val MAP_PREFERENCES = BuildConfig.APPLICATION_ID + ".OSM_MAP_PREFERENCES"
+        private const val MAP_PREFERENCES =
+            BuildConfig.LIBRARY_PACKAGE_NAME + ".OSM_MAP_PREFERENCES"
 
         fun createIntent(
             context: Context,

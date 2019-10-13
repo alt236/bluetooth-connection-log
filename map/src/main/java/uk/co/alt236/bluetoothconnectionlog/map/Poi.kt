@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.map
+package uk.co.alt236.bluetoothconnectionlog.map
 
 import java.io.Serializable
 

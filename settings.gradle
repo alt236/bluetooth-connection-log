@@ -1,1 +1,1 @@
-include ':app', ':database', ':btdeviceinfo', ':sharedprefs'
+include ':app', ':database', ':btdeviceinfo', ':sharedprefs', ':map'

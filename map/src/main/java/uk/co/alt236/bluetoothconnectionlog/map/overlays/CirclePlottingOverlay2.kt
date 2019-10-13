@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.map
+package uk.co.alt236.bluetoothconnectionlog.map.overlays
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,7 +8,6 @@ import android.graphics.Point
 import org.osmdroid.views.Projection
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.OverlayItem
-
 
 internal class CirclePlottingOverlay2<Item : OverlayItem>(
     context: Context,
@@ -23,7 +22,12 @@ internal class CirclePlottingOverlay2<Item : OverlayItem>(
         accuracyPaint.isAntiAlias = true
     }
 
-    override fun onDrawItem(canvas: Canvas, item: Item, curScreenCoords: Point, pProjection: Projection): Boolean {
+    override fun onDrawItem(
+        canvas: Canvas,
+        item: Item,
+        curScreenCoords: Point,
+        pProjection: Projection
+    ): Boolean {
 
         val geoPoint = item.point
         val circleDrawn = if (geoPoint is AccurateGeoPoint && geoPoint.getAccuracyInMeters() > 0) {
@@ -33,13 +37,23 @@ internal class CirclePlottingOverlay2<Item : OverlayItem>(
             accuracyPaint.isAntiAlias = false
             accuracyPaint.alpha = 30
             accuracyPaint.style = Paint.Style.FILL
-            canvas.drawCircle(curScreenCoords.x.toFloat(), curScreenCoords.y.toFloat(), accuracyRadius, accuracyPaint)
+            canvas.drawCircle(
+                curScreenCoords.x.toFloat(),
+                curScreenCoords.y.toFloat(),
+                accuracyRadius,
+                accuracyPaint
+            )
 
             /* Draw the edge. */
             accuracyPaint.isAntiAlias = true
             accuracyPaint.alpha = 150
             accuracyPaint.style = Paint.Style.STROKE
-            canvas.drawCircle(curScreenCoords.x.toFloat(), curScreenCoords.y.toFloat(), accuracyRadius, accuracyPaint)
+            canvas.drawCircle(
+                curScreenCoords.x.toFloat(),
+                curScreenCoords.y.toFloat(),
+                accuracyRadius,
+                accuracyPaint
+            )
             true
         } else {
             false

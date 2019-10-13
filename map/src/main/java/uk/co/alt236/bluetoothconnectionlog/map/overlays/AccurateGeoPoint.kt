@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.ui.map
+package uk.co.alt236.bluetoothconnectionlog.map.overlays
 
 import org.osmdroid.api.IGeoPoint
 

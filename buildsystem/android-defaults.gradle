@@ -73,12 +73,22 @@ task jacocoTestReport2(type: JacocoReport) {
         html.enabled = true
     }
 
-    def fileFilter = ['**/R.class',
+    def fileFilter = ['jdk.internal.*',
+                      'android/**/*.*',
+                      '**/R.class',
                       '**/R$*.class',
                       '**/BuildConfig.*',
                       '**/Manifest*.*',
                       '**/*Test*.*',
-                      'android/**/*.*']
+                      '**/*$ViewInjector*.*',
+                      '**/*$ViewBinder*.*',
+                      // DAGGER 2
+                      '**/*_*Factory*.*',
+                      '**/*_MembersInjector*.*',
+                      '**/*_MembersInjector.class',
+                      '**/*Module*.*',
+                      '**/Dagger*Component$Builder.class',
+                      '**/Dagger*Component*.*']
 
     def mainSrc = "$project.projectDir/src/main/java"
 
@@ -105,5 +115,5 @@ task jacocoTestReport2(type: JacocoReport) {
 }
 
 tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
+    jacoco.includeNoLocationClasses = false
 }

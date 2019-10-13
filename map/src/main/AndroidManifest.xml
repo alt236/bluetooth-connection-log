@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="uk.co.alt236.bluetoothconnectionlog.map">
+
+    <application>
+        <activity android:name=".MapActivity" />
+    </application>
+
+</manifest>
+
+
+

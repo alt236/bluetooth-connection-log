@@ -40,7 +40,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="uk.co.alt236.bluetoothconnectionlog.ui.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.map.MapActivity" />
+
         <activity android:name=".ui.onboarding.OnBoardingActivity" />
 
         <receiver
