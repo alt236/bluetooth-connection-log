@@ -1,2 +1,1 @@
-<manifest
-        package="uk.co.alt236.bluetoothconnectionlog"/>
+<manifest package="uk.co.alt236.bluetoothconnectionlog.db" />

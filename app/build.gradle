@@ -2,17 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: "${project.rootDir}/buildsystem/android-defaults.gradle"
 
 android {
-    compileSdkVersion 29
     defaultConfig {
         applicationId "uk.co.alt236.bluetoothconnectionlog"
-        minSdkVersion 22
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode getBuildNumber()
+        versionName "1.0.0." + getBuildNumber()
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,22 +26,23 @@ dependencies {
     implementation project(path: ':sharedprefs')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.constraintlayout:constraintlayout-solver:1.1.3'
-    implementation 'org.osmdroid:osmdroid-android:6.1.0'
-    implementation 'io.github.dreierf:material-intro-screen:0.0.6'
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.core:core-ktx:$androidx_core_ktx"
+    implementation "androidx.legacy:legacy-support-v4:$androidx_legacy_v4"
+    implementation "androidx.recyclerview:recyclerview:$androidx_recyclerview"
+    implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
+    implementation "androidx.preference:preference:$androidx_preferences"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_contraint_layout_version"
+    implementation "androidx.constraintlayout:constraintlayout-solver:$androidx_contraint_layout_version"
 
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation "com.google.android.gms:play-services-location:$google_play_services_version"
+    implementation "com.google.android.material:material:$google_material_lib_version"
 
-    implementation 'androidx.preference:preference:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "org.osmdroid:osmdroid-android:$osmdroid_version"
+    implementation "io.github.dreierf:material-intro-screen:0.0.6"
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test:runner:$androidx_test_runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_core_version"
 }
