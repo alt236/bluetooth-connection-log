@@ -15,6 +15,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "Boolean", "INSERT_DUMMY_DATA", "false"
+        }
+
+        debug {
+            buildConfigField "Boolean", "INSERT_DUMMY_DATA", "true"
         }
     }
 }

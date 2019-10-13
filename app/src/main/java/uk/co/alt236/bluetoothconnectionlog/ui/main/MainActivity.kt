@@ -21,11 +21,6 @@ import uk.co.alt236.bluetoothconnectionlog.ui.onboarding.OnboardingStatusStore
 
 class MainActivity : AppCompatActivity() {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    private var twoPane: Boolean = false
     private lateinit var deviceViewModel: LogEntryViewModel
     private lateinit var permissionCheck: LocationPermissionCheck
     private lateinit var tvLocationStatus: TextView
@@ -53,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         tvBtStatus = findViewById(R.id.tvBluetoothStatus)
         tvItemCount = findViewById(R.id.tvItemCount)
 
+        val twoPane = itemDetailContainer != null
+
         val adapter = DeviceRecyclerAdapter(
             this,
             twoPane
@@ -76,10 +73,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         itemStatusContainer.setOnClickListener { navigator.openSystemSettings() }
-
-        if (itemDetailContainer != null) {
-            twoPane = true
-        }
     }
 
     override fun onResume() {

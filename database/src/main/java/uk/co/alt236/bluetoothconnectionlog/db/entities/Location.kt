@@ -17,21 +17,18 @@ class Location(
     @ColumnInfo(name = "timestamp")
     val timestamp: Long,
     @ColumnInfo(name = "accuracy_horizontal")
-    val horizontalAccuracy: Float,
+    val horizontalAccuracy: Float = 0.0f,
     @ColumnInfo(name = "accuracy_vertical")
-    val verticalAccuracy: Float
+    val verticalAccuracy: Float = 0.0f
 ) : Serializable {
     companion object {
 
         @JvmField
         val INVALID = Location(
-            valid = false,
             latitude = 0.0,
             longitude = 0.0,
             altitude = 0.0,
-            timestamp = 0,
-            horizontalAccuracy = 0.0f,
-            verticalAccuracy = 0.0f
+            timestamp = 0
         )
     }
 }
