@@ -2,7 +2,7 @@ package uk.co.alt236.bluetoothconnectionlog.ui.map
 
 import org.osmdroid.api.IGeoPoint
 
-data class AccurateGeoPoint(
+internal data class AccurateGeoPoint(
     private val aLatitude: Double = 0.0,
     private val aLongitude: Double = 0.0,
     private val aAltitude: Double = 0.0,

@@ -10,7 +10,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.OverlayItem
 
 
-class CirclePlottingOverlay2<Item : OverlayItem>(
+internal class CirclePlottingOverlay2<Item : OverlayItem>(
     context: Context,
     list: List<Item>,
     listener: OnItemGestureListener<Item>?

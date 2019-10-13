@@ -37,6 +37,6 @@ ext {
     jsonviewer_version = "1.0.6"
 
     // Other
-    osmdroid_version = "6.1.0"
+    osmdroid_version = "6.1.2"
     material_intro_screen_version = "0.0.6"
 }
