@@ -14,7 +14,7 @@ data class BtDevice(
     val name: String
 ) : Serializable {
 
-    fun getFriendlyName(): String {
+    fun getDisplayName(): String {
         val trimmedName = name.trim()
         return if (trimmedName.isBlank()) macAddress else trimmedName
     }

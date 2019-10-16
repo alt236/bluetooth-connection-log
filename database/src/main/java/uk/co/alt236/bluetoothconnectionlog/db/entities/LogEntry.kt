@@ -26,7 +26,6 @@ data class LogEntry(
     var id: Int = 0
 
     fun getDisplayName(): String {
-        val trimmedName = device.name.trim()
-        return if (trimmedName.isBlank()) device.macAddress else trimmedName
+        return device.getDisplayName()
     }
 }

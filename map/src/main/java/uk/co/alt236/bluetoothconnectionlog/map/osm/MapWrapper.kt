@@ -1,19 +1,20 @@
-package uk.co.alt236.bluetoothconnectionlog.map
+package uk.co.alt236.bluetoothconnectionlog.map.osm
 
+import androidx.core.content.ContextCompat
 import org.osmdroid.tileprovider.MapTileProviderBasic
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.MinimapOverlay
 import org.osmdroid.views.overlay.OverlayItem
-import uk.co.alt236.bluetoothconnectionlog.map.overlays.AccurateGeoPoint
-import uk.co.alt236.bluetoothconnectionlog.map.overlays.CirclePlottingOverlay2
+import uk.co.alt236.bluetoothconnectionlog.map.Poi
+import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.AccurateGeoPoint
+import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.CirclePlottingOverlay2
 
 internal class MapWrapper(private val map: MapView) {
+    private val context = map.context.applicationContext
 
     init {
-        val context = map.context
-
         val tileProvider = MapTileProviderBasic(context, TileSourceFactory.DEFAULT_TILE_SOURCE)
         tileProvider.setOfflineFirst(false)
 
@@ -29,14 +30,10 @@ internal class MapWrapper(private val map: MapView) {
     }
 
     fun centerOn(poi: Poi) {
-        val geoPoint = AccurateGeoPoint(
-            aLatitude = poi.latitude,
-            aLongitude = poi.longitude,
-            aAccuracyInMeters = poi.accuracy
-        )
-
         val items = ArrayList<OverlayItem>()
-        items.add(OverlayItem("Title", "Description", geoPoint))
+        val overlayItem = createOverlayItem(poi)
+
+        items.add(overlayItem)
 
         val overlay =
             CirclePlottingOverlay2(
@@ -47,7 +44,24 @@ internal class MapWrapper(private val map: MapView) {
 
         map.overlays.add(overlay)
         map.controller.zoomTo(TARGET_ZOOM_LEVEL)
-        map.controller.animateTo(GeoPoint(geoPoint.latitude, geoPoint.longitude))
+        map.controller.animateTo(GeoPoint(overlayItem.point))
+    }
+
+    private fun createOverlayItem(poi: Poi): OverlayItem {
+        val geoPoint = AccurateGeoPoint(
+            aLatitude = poi.latitude,
+            aLongitude = poi.longitude,
+            aAccuracyInMeters = poi.accuracy
+        )
+
+        val item = OverlayItem(poi.title, "", geoPoint)
+
+        if (poi.drawableId != null) {
+            val drawable = ContextCompat.getDrawable(map.context, poi.drawableId)!!
+            item.setMarker(drawable)
+        }
+
+        return item
     }
 
     private companion object {

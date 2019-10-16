@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import org.osmdroid.config.Configuration
 import org.osmdroid.views.MapView
+import uk.co.alt236.bluetoothconnectionlog.map.osm.MapWrapper
 
 class MapActivity : AppCompatActivity() {
 

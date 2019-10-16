@@ -6,13 +6,14 @@ import android.net.Uri
 import android.provider.Settings
 import android.util.Log
 import androidx.core.content.ContextCompat
-import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
-import uk.co.alt236.bluetoothconnectionlog.db.entities.Location
+import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.map.MapIntentFactory
 import uk.co.alt236.bluetoothconnectionlog.ui.onboarding.OnBoardingActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.settings.SettingsActivity
 
 class Navigator(private val context: Context) {
     private val mapIntentFactory = MapIntentFactory(context)
+    private val mapper = LogEntryToPoiMapper()
 
     fun openOnBoarding() {
         val intent = Intent(context, OnBoardingActivity::class.java)
@@ -35,8 +36,11 @@ class Navigator(private val context: Context) {
         startActivity(intent)
     }
 
-    fun openMap(device: BtDevice, location: Location) {
-        val intent = mapIntentFactory.createIntent(device.getFriendlyName(), location)
+    fun openMap(entry: LogEntry) {
+        require(entry.location.valid) { "Passed location is not valid!" }
+
+        val poi = mapper.map(entry)
+        val intent = mapIntentFactory.createIntent(poi)
         startActivity(intent)
     }
 

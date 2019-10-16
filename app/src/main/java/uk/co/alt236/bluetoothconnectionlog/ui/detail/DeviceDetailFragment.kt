@@ -55,7 +55,7 @@ class DeviceDetailFragment : Fragment() {
 
     private fun updateTitle(btDevice: BtDevice) {
         if (activity is DeviceDetailActivity) {
-            (activity as DeviceDetailActivity).setPageTitle(btDevice.getFriendlyName())
+            (activity as DeviceDetailActivity).setPageTitle(btDevice.getDisplayName())
         }
     }
 

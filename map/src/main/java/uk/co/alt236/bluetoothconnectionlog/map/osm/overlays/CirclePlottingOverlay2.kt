@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.map.overlays
+package uk.co.alt236.bluetoothconnectionlog.map.osm.overlays
 
 import android.content.Context
 import android.graphics.Canvas
