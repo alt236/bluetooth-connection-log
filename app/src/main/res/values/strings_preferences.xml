@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification Settings -->
+    <string name="preference_category_notifications">Notify on connection change</string>
+
+    <string name="preference_title_notify_on_connection">Device connected</string>
+    <string name="preference_key_notify_on_connection" translatable="false">notify_on_connection</string>
+
+    <string name="preference_title_notify_on_disconnection">Device disconnected</string>
+    <string name="preference_key_notify_on_disconnection" translatable="false">notify_on_disconnection</string>
+
+    <string name="preference_title_notify_on_disconnection_request">Disconnection requested</string>
+    <string name="preference_key_notify_on_disconnection_request" translatable="false">notify_on_disconnection_request</string>
+
+</resources>

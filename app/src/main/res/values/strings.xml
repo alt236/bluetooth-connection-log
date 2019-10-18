@@ -20,18 +20,11 @@
     <string name="menu_item_favourite">Favourite</string>
     <string name="menu_item_not_favourite">Not Favourite</string>
 
-    <!-- Notification Settings -->
-    <string name="preference_category_notifications">Notify on connection change</string>
-
-    <string name="preference_title_notify_on_connection">Device connected</string>
-    <string name="preference_key_notify_on_connection" translatable="false">notify_on_connection</string>
-
-    <string name="preference_title_notify_on_disconnection">Device disconnected</string>
-    <string name="preference_key_notify_on_disconnection" translatable="false">notify_on_disconnection</string>
-
-    <string name="preference_title_notify_on_disconnection_request">Disconnection requested</string>
-    <string name="preference_key_notify_on_disconnection_request" translatable="false">notify_on_disconnection_request
-    </string>
-
-
+    <!-- Device Event Toasts -->
+    <string name="toast_device_connected">BT device connected: \'%s\'</string>
+    <string name="toast_fav_device_connected">BT ★ device connected: \'%s\'</string>
+    <string name="toast_device_disconnected">BT device disconnected: \'%s\'</string>
+    <string name="toast_fav_device_disconnected">BT ★ device disconnected: \'%s\'</string>
+    <string name="toast_device_disconnect_requested">BT device disconnect req: \'%s\'</string>
+    <string name="toast_fav_device_disconnect_requested">BT ★ device disconnect req: \'%s\'</string>
 </resources>

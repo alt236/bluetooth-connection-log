@@ -10,63 +10,68 @@ import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.preference.PreferenceManager
 import com.google.android.gms.location.LocationServices
-import uk.co.alt236.bluetoothconnectionlog.R
+import uk.co.alt236.bluetoothconnectionlog.db.entities.Event
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.repo.FavouritesRepository
 import uk.co.alt236.bluetoothconnectionlog.repo.LogRepository
 
 private const val TAG = "BTCONEVENT"
 
 class BluetoothConnectionReceiver : BroadcastReceiver() {
     private val mapper = DataMapper()
+    private val stringResResolver = ToastStringResIdResolver()
 
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action ?: return
-        val device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
-        val logRepository = LogRepository(context)
 
-        when (action) {
-            BluetoothDevice.ACTION_ACL_CONNECTED -> insert(context, logRepository, device, action)
-            BluetoothDevice.ACTION_ACL_DISCONNECTED -> insert(context, logRepository, device, action)
-            BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED -> insert(context, logRepository, device, action)
-            else -> return
+        // The -1 is for the UNKNOWN state
+        check(HANDLED_ACTIONS.size == Event.values().size - 1) {
+            "There seems to be disparity between the handled states and the event enum..."
+        }
+
+        if (HANDLED_ACTIONS.contains(action)) {
+            val logRepository = LogRepository(context)
+            val isFaRepo = FavouritesRepository(context)
+
+            val device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
+            val logEntry = mapper.createLogEntry(device, action, System.currentTimeMillis())
+            val isFavourite = isFaRepo.isFavourite(logEntry.device)
+
+            writeEntry(context, logRepository, logEntry)
+            notify(context, logEntry, isFavourite)
         }
     }
 
-    private fun insert(context: Context, logRepository: LogRepository, device: BluetoothDevice, action: String) {
-        val logEntry = mapper.createLogEntry(device, action, System.currentTimeMillis())
-        Log.d(TAG, "Device status changed: ${logEntry.event} - $device")
-        writeEntry(context, logRepository, logEntry)
-        notify(context, action, logEntry)
-    }
+    private fun notify(context: Context, logEntry: LogEntry, isFav: Boolean) {
+        val prefs = NotificationPrefs(context)
 
-    private fun notify(context: Context, action: String, logEntry: LogEntry) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        when (action) {
-            BluetoothDevice.ACTION_ACL_CONNECTED -> {
-                if (preferences.getBoolean(context.getString(R.string.preference_key_notify_on_connection), false)) {
-                    val text = "BT device connected: '${logEntry.getDisplayName()}'"
+        val deviceName = logEntry.getDisplayName()
+
+        when (logEntry.event) {
+            Event.CONNECTED -> {
+                if (prefs.shouldNotifyOnConnection()) {
+                    val resId = stringResResolver.getConnectionResId(isFav)
+                    val text = context.getString(resId, deviceName)
                     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                 }
             }
-            BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
-                if (preferences.getBoolean(context.getString(R.string.preference_key_notify_on_disconnection), false)) {
-                    val text = "BT device disconnected: '${logEntry.getDisplayName()}'"
+            Event.DISCONNECTED -> {
+                if (prefs.shouldNotifyOnDisconnection()) {
+                    val resId = stringResResolver.getDisconnectionResId(isFav)
+                    val text = context.getString(resId, deviceName)
                     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                 }
             }
-            BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED -> {
-                if (preferences.getBoolean(
-                        context.getString(R.string.preference_key_notify_on_disconnection_request),
-                        false
-                    )
-                ) {
-                    val text = "BT device disconnect requested: '${logEntry.getDisplayName()}'"
+            Event.DISCONNECT_REQUESTED -> {
+                if (prefs.shouldNotifyOnDisconnectionRequest()) {
+                    val resId = stringResResolver.getDisconnectionRequestedResId(isFav)
+                    val text = context.getString(resId, deviceName)
                     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                 }
             }
-            else -> return
+            Event.UNKNOWN -> {
+            }
         }
     }
 
@@ -102,6 +107,14 @@ class BluetoothConnectionReceiver : BroadcastReceiver() {
                 || ActivityCompat.checkSelfPermission(
             context,
             Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED);
+        ) == PackageManager.PERMISSION_GRANTED)
+    }
+
+    private companion object {
+        val HANDLED_ACTIONS = setOf(
+            BluetoothDevice.ACTION_ACL_CONNECTED,
+            BluetoothDevice.ACTION_ACL_DISCONNECTED,
+            BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED
+        )
     }
 }
