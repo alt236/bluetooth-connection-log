@@ -29,6 +29,19 @@ internal class MapWrapper(private val map: MapView) {
         map.overlays.add(minimapOverlay)
     }
 
+
+    fun onResume() {
+        map.onResume()
+    }
+
+    fun onPause() {
+        map.onPause()
+    }
+
+    fun onDetach() {
+        map.onDetach()
+    }
+
     fun centerOn(poi: Poi) {
         val items = ArrayList<OverlayItem>()
         val overlayItem = createOverlayItem(poi)

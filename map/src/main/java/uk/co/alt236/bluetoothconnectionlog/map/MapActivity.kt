@@ -3,52 +3,35 @@ package uk.co.alt236.bluetoothconnectionlog.map
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import org.osmdroid.config.Configuration
-import org.osmdroid.views.MapView
-import uk.co.alt236.bluetoothconnectionlog.map.osm.MapWrapper
+import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.OsmFragment
 
 class MapActivity : AppCompatActivity() {
-
-    private lateinit var map: MapView
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val ctx = applicationContext
-        Configuration.getInstance().load(
-            ctx,
-            getSharedPreferences(MAP_PREFERENCES, Context.MODE_PRIVATE)
-        )
-
         setContentView(R.layout.activity_map)
-
-        map = findViewById(R.id.map)
-        val mapWrapper = MapWrapper(map)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         intent.extras?.apply {
             val poi: Poi = getSerializable(ARG_POI) as Poi
-
-            Log.d(TAG, "Will display ${poi.latitude}/${poi.longitude}/${poi.accuracy}")
-
             title = poi.title
-            mapWrapper.centerOn(poi)
+
+            if (savedInstanceState == null) {
+                val fragment = OsmFragment.createFragment(poi)
+                val tag = fragment::class.java.simpleName
+
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment, tag)
+                    .commit()
+            }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        map.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        map.onPause()
-    }
 
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
@@ -62,8 +45,6 @@ class MapActivity : AppCompatActivity() {
     companion object {
         private val TAG = MapActivity::class.java.simpleName
         private const val ARG_POI = "ARG_POI"
-        private const val MAP_PREFERENCES =
-            BuildConfig.LIBRARY_PACKAGE_NAME + ".OSM_MAP_PREFERENCES"
 
         fun createIntent(
             context: Context,
