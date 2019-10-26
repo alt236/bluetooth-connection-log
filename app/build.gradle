@@ -20,6 +20,7 @@ android {
         }
 
         debug {
+            applicationIdSuffix ".debug"
             buildConfigField "Boolean", "INSERT_DUMMY_DATA", "true"
         }
     }
