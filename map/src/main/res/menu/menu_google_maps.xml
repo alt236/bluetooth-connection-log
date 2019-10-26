@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.detail.DeviceDetailActivity">
+
+    <item
+            android:id="@+id/action_center_on_marker"
+            android:icon="@drawable/ic_menu_map_center_on_poi"
+            android:title="@string/menu_map_center_on_poi"
+            android:visible="true"
+            app:showAsAction="always" />
+</menu>

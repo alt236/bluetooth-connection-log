@@ -3,8 +3,11 @@
 
     <application>
         <activity android:name=".MapActivity" />
-    </application>
 
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyDvcmGgGIlMbQjEQP686ICnFZQ0fkbeplU" />
+    </application>
 </manifest>
 
 

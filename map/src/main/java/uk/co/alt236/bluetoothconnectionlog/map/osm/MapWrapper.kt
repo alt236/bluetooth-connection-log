@@ -7,7 +7,8 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.MinimapOverlay
 import org.osmdroid.views.overlay.OverlayItem
-import uk.co.alt236.bluetoothconnectionlog.map.Poi
+import uk.co.alt236.bluetoothconnectionlog.map.MapColorFactory
+import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
 import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.AccurateGeoPoint
 import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.CirclePlottingOverlay2
 
@@ -43,6 +44,7 @@ internal class MapWrapper(private val map: MapView) {
     }
 
     fun centerOn(poi: Poi) {
+        val colorFactory = MapColorFactory(poi.graphics)
         val items = ArrayList<OverlayItem>()
         val overlayItem = createOverlayItem(poi)
 
@@ -51,6 +53,7 @@ internal class MapWrapper(private val map: MapView) {
         val overlay =
             CirclePlottingOverlay2(
                 map.context,
+                colorFactory,
                 items,
                 null
             )
@@ -69,8 +72,8 @@ internal class MapWrapper(private val map: MapView) {
 
         val item = OverlayItem(poi.title, "", geoPoint)
 
-        if (poi.drawableId != null) {
-            val drawable = ContextCompat.getDrawable(map.context, poi.drawableId)!!
+        if (poi.graphics.markerDrawableId != null) {
+            val drawable = ContextCompat.getDrawable(map.context, poi.graphics.markerDrawableId)!!
             item.setMarker(drawable)
         }
 

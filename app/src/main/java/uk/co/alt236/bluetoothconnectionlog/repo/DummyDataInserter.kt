@@ -29,7 +29,14 @@ internal class DummyDataInserter(
             val btDevice = BtDevice(btClass, macAddress, "Device #$x")
 
             val location = LOCATIONS[x]
-            val logEntry = LogEntry(Event.CONNECTED, location.timestamp, btDevice, location)
+            val event = when (x) {
+                0 -> Event.CONNECTED
+                1 -> Event.DISCONNECTED
+                2 -> Event.DISCONNECT_REQUESTED
+                else -> Event.UNKNOWN
+            }
+
+            val logEntry = LogEntry(event, location.timestamp, btDevice, location)
 
             repo.insert(logEntry)
         }
@@ -46,20 +53,30 @@ internal class DummyDataInserter(
                 latitude = 37.98333333,
                 longitude = 23.733333,
                 altitude = 0.0,
-                timestamp = 1570964656000
+                timestamp = 1570964656000,
+                horizontalAccuracy = 100.0f
             ), // Athens
             Location(
                 latitude = 30.05,
                 longitude = 31.25,
                 altitude = 0.0,
-                timestamp = 1570878256000
+                timestamp = 1570878256000,
+                horizontalAccuracy = 100.0f
             ), //Cairo
             Location(
-                latitude = 37.98333333,
-                longitude = 23.733333,
+                latitude = 41.890251,
+                longitude = 12.492373,
                 altitude = 0.0,
-                timestamp = 1570791856000
-            ) //Rome
+                timestamp = 1570791856000,
+                horizontalAccuracy = 100.0f
+            ), //Rome
+            Location(
+                latitude = 39.916668,
+                longitude = 116.383331,
+                altitude = 0.0,
+                timestamp = 1570601856000,
+                horizontalAccuracy = 100.0f
+            ) //Beijing
         )
         val NUMBER_OF_ITEMS = LOCATIONS.size
     }
