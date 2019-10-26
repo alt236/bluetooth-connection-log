@@ -14,6 +14,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.core:core-ktx:$androidx_core_ktx"
+    implementation "com.google.android.gms:play-services-maps:17.0.0"
 
     implementation "org.osmdroid:osmdroid-android:$osmdroid_version"
 

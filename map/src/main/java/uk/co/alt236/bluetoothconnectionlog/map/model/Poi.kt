@@ -1,6 +1,5 @@
-package uk.co.alt236.bluetoothconnectionlog.map
+package uk.co.alt236.bluetoothconnectionlog.map.model
 
-import androidx.annotation.DrawableRes
 import java.io.Serializable
 
 data class Poi(
@@ -8,5 +7,5 @@ data class Poi(
     val latitude: Double,
     val longitude: Double,
     val accuracy: Float,
-    @DrawableRes val drawableId: Int? = null
+    val graphics: Graphics
 ) : Serializable

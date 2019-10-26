@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import uk.co.alt236.bluetoothconnectionlog.map.gmaps.GmapsFragment
+import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
 import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.OsmFragment
 
 class MapActivity : AppCompatActivity() {
@@ -21,7 +23,12 @@ class MapActivity : AppCompatActivity() {
             title = poi.title
 
             if (savedInstanceState == null) {
-                val fragment = OsmFragment.createFragment(poi)
+                val fragment = if (getBoolean(ARG_GMAPS)) {
+                    GmapsFragment.createFragment(poi)
+                } else {
+                    OsmFragment.createFragment(poi)
+                }
+
                 val tag = fragment::class.java.simpleName
 
                 supportFragmentManager
@@ -45,10 +52,12 @@ class MapActivity : AppCompatActivity() {
     companion object {
         private val TAG = MapActivity::class.java.simpleName
         private const val ARG_POI = "ARG_POI"
+        private const val ARG_GMAPS = "ARG_GMAPS"
 
         fun createIntent(
             context: Context,
-            poi: Poi
+            poi: Poi,
+            useGmaps: Boolean = false
         ): Intent {
             val intent = Intent(
                 context,
@@ -56,6 +65,8 @@ class MapActivity : AppCompatActivity() {
             )
 
             intent.putExtra(ARG_POI, poi)
+            intent.putExtra(ARG_GMAPS, useGmaps)
+
             return intent
         }
     }

@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import org.osmdroid.config.Configuration
 import org.osmdroid.views.MapView
 import uk.co.alt236.bluetoothconnectionlog.map.BuildConfig
-import uk.co.alt236.bluetoothconnectionlog.map.Poi
 import uk.co.alt236.bluetoothconnectionlog.map.R
+import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
 import uk.co.alt236.bluetoothconnectionlog.map.osm.MapWrapper
 
 internal class OsmFragment : Fragment() {

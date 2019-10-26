@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">map</string>
+
+    <string name="menu_map_center_on_poi">Go to marker</string>
 </resources>
