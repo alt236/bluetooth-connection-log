@@ -12,4 +12,18 @@
     <string name="preference_title_notify_on_disconnection_request">Disconnection requested</string>
     <string name="preference_key_notify_on_disconnection_request" translatable="false">notify_on_disconnection_request</string>
 
+    <string name="preference_title_notify_only_for_favourites">Notify only for favourites</string>
+    <string name="preference_key_notify_only_for_favourites" translatable="false">notify_only_for_favourites</string>
+
+    <!-- Permission Settings -->
+    <string name="preference_category_permissions">Manage permissions</string>
+
+    <string name="preference_title_manage_permissions">Manage permissions</string>
+    <string name="preference_key_manage_permissions" translatable="false">manage_permissions</string>
+
+    <!-- App Info Settings -->
+    <string name="preference_category_app_info">Application Info</string>
+
+    <string name="preference_title_app_version">Version</string>
+    <string name="preference_key_app_version" translatable="false">application_version</string>
 </resources>

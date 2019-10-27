@@ -27,4 +27,11 @@ internal class NotificationPrefs(private val context: Context) {
             false
         )
     }
+
+    fun shouldNotifyOnlyForFavs(): Boolean {
+        return prefs.getBoolean(
+            context.getString(R.string.preference_key_notify_only_for_favourites),
+            false
+        )
+    }
 }

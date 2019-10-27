@@ -46,6 +46,10 @@ class BluetoothConnectionReceiver : BroadcastReceiver() {
     private fun notify(context: Context, logEntry: LogEntry, isFav: Boolean) {
         val prefs = NotificationPrefs(context)
 
+        if (prefs.shouldNotifyOnlyForFavs() && !isFav) {
+            return
+        }
+
         val deviceName = logEntry.getDisplayName()
 
         when (logEntry.event) {
