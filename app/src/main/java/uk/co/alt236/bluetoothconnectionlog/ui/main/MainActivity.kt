@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val itemDetailContainer = findViewById<View?>(R.id.item_detail_container)
-        val itemStatusContainer = findViewById<View>(R.id.itemStatusContainer)
 
         setSupportActionBar(toolbar)
         toolbar.title = title
@@ -72,7 +71,6 @@ class MainActivity : AppCompatActivity() {
             })
 
         progressDataListView.setAdapter(adapter)
-        itemStatusContainer.setOnClickListener { navigator.openSystemSettings() }
     }
 
     override fun onResume() {

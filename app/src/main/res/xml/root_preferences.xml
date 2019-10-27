@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/preference_category_notifications">
+    <androidx.preference.PreferenceCategory
+            app:iconSpaceReserved="false"
+            app:title="@string/preference_category_notifications">
 
-        <SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
+                app:iconSpaceReserved="false"
                 app:key="@string/preference_key_notify_on_connection"
-                app:title="@string/preference_title_notify_on_connection"/>
+                app:title="@string/preference_title_notify_on_connection" />
 
-        <SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
+                app:iconSpaceReserved="false"
                 app:key="@string/preference_key_notify_on_disconnection"
-                app:title="@string/preference_title_notify_on_disconnection"/>
+                app:title="@string/preference_title_notify_on_disconnection" />
 
-        <SwitchPreferenceCompat
-                app:key="@string/preference_title_notify_on_disconnection_request"
-                app:title="@string/preference_title_notify_on_disconnection_request"/>
-    </PreferenceCategory>
+        <androidx.preference.SwitchPreferenceCompat
+                app:iconSpaceReserved="false"
+                app:key="@string/preference_key_notify_on_disconnection_request"
+                app:title="@string/preference_title_notify_on_disconnection_request" />
 
+        <androidx.preference.SwitchPreferenceCompat
+                app:iconSpaceReserved="false"
+                app:key="@string/preference_key_notify_only_for_favourites"
+                app:title="@string/preference_title_notify_only_for_favourites" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+            app:iconSpaceReserved="false"
+            app:title="@string/preference_category_notifications">
+
+        <androidx.preference.Preference
+                app:iconSpaceReserved="false"
+                app:key="@string/preference_key_manage_permissions"
+                app:title="@string/preference_title_manage_permissions" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+            app:iconSpaceReserved="false"
+            app:title="@string/preference_category_app_info">
+
+        <androidx.preference.Preference
+                app:iconSpaceReserved="false"
+                app:key="@string/preference_key_app_version"
+                app:title="@string/preference_title_app_version" />
+    </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>
