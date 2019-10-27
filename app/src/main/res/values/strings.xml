@@ -11,6 +11,9 @@
     <string name="off">Off</string>
     <string name="on">On</string>
 
+    <string name="no_devices_empty_text">No bluetooth events.\nTry connecting to a device.</string>
+    <string name="no_log_entries_empty_text">No data</string>
+
     <!-- Activity Titles -->
     <string name="title_item_detail">Connection Log</string>
     <string name="title_activity_settings">Settings</string>
