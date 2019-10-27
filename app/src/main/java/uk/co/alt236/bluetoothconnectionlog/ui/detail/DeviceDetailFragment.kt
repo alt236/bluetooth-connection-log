@@ -5,13 +5,13 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.recycler.LogRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.Navigator
+import uk.co.alt236.bluetoothconnectionlog.ui.views.ProgressDataListView
 import java.io.Serializable
 
 class DeviceDetailFragment : Fragment() {
@@ -21,7 +21,8 @@ class DeviceDetailFragment : Fragment() {
     private var isFav: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         btDevice = arguments.getSerializableOrThrow(ARG_DEVICE) as BtDevice
@@ -31,16 +32,22 @@ class DeviceDetailFragment : Fragment() {
         updateTitle(btDevice)
         setHasOptionsMenu(true)
 
-        val recycler = rootView.findViewById<RecyclerView>(R.id.item_list)
-
         val navigator = Navigator(activity!!)
         val adapter = LogRecyclerAdapter(activity!!, navigator)
-        recycler.adapter = adapter
+        val progressDataListView = rootView.findViewById<ProgressDataListView>(R.id.item_list)
+        progressDataListView.setEmptyText(R.string.no_log_entries_empty_text)
+        progressDataListView.showProgress()
+        progressDataListView.setAdapter(adapter)
 
         viewModel.getLogForDevice(btDevice).observe(
             this,
             Observer<List<LogEntry>> { data ->
                 adapter.setData(data)
+                if (data.isEmpty()) {
+                    progressDataListView.showEmpty()
+                } else {
+                    progressDataListView.showData()
+                }
             })
 
         viewModel.getFavStatusForDevice(btDevice).observe(

@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import uk.co.alt236.bluetoothconnectionlog.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
@@ -18,6 +17,7 @@ import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.main.recycler.DeviceRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.Navigator
 import uk.co.alt236.bluetoothconnectionlog.ui.onboarding.OnboardingStatusStore
+import uk.co.alt236.bluetoothconnectionlog.ui.views.ProgressDataListView
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,13 +31,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_device_list)
+        setContentView(R.layout.activity_main)
         permissionCheck = LocationPermissionCheck(this)
         btCheck = BluetoothStatusCheck(this)
         navigator = Navigator(this)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val recyclerView = findViewById<RecyclerView>(R.id.item_list)
         val itemDetailContainer = findViewById<View?>(R.id.item_detail_container)
         val itemStatusContainer = findViewById<View>(R.id.itemStatusContainer)
 
@@ -55,23 +54,24 @@ class MainActivity : AppCompatActivity() {
             twoPane
         )
 
+        val progressDataListView = findViewById<ProgressDataListView>(R.id.item_list)
+        progressDataListView.setEmptyText(R.string.no_devices_empty_text)
+        progressDataListView.showProgress()
+
         deviceViewModel = ViewModelProviders.of(this).get(LogEntryViewModel::class.java)
         deviceViewModel.getAllDevices().observe(this,
             Observer<List<PersonalisedLogDevice>> { data ->
-                if (BuildConfig.DEBUG) {
-                    val sb = StringBuilder()
-                    for (device in data) {
-                        sb.append(device.toString())
-                        sb.append('\n')
-                    }
-                    Log.d(MainActivity::class.java.simpleName, "DEVICES: $sb")
+                dumpData(data)
+                adapter.setData(data)
+                if (data.isEmpty()) {
+                    progressDataListView.showEmpty()
+                } else {
+                    progressDataListView.showData()
                 }
-                adapter.setData(data!!)
                 tvItemCount.text = getString(R.string.formatter_device_count, data.size)
             })
 
-        recyclerView.adapter = adapter
-
+        progressDataListView.setAdapter(adapter)
         itemStatusContainer.setOnClickListener { navigator.openSystemSettings() }
     }
 
@@ -101,6 +101,18 @@ class MainActivity : AppCompatActivity() {
             navigator.openOnBoarding()
         } else {
             Log.d(TAG, "No need to show onboarding...")
+        }
+    }
+
+
+    private fun dumpData(data: List<PersonalisedLogDevice>) {
+        if (BuildConfig.DEBUG) {
+            val sb = StringBuilder()
+            for (device in data) {
+                sb.append(device.toString())
+                sb.append('\n')
+            }
+            Log.d(MainActivity::class.java.simpleName, "DEVICES: $sb")
         }
     }
 

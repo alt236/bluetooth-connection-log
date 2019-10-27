@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                     xmlns:tools="http://schemas.android.com/tools"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent"
-                                                     android:fitsSystemWindows="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".ui.main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,7 +17,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -30,9 +30,9 @@
 
         <LinearLayout
                 android:id="@+id/itemStatusContainer"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
             <GridLayout
@@ -43,54 +43,53 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_row="0"
                         android:layout_column="0"
                         android:layout_gravity="start"
-                        android:layout_row="0"
                         android:text="@string/label_bluetooth_status"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 <TextView
                         android:id="@+id/tvBluetoothStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_row="0"
                         android:layout_column="1"
                         android:layout_marginStart="28dp"
-                        android:layout_row="0"
                         android:gravity="end"
-                        android:text="@string/off"/>
+                        android:text="@string/off" />
 
                 <TextView
+                        android:layout_row="1"
                         android:layout_column="0"
                         android:layout_gravity="center_horizontal"
-                        android:layout_row="1"
                         android:text="@string/label_location_permission"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 <TextView
                         android:id="@+id/tvLocationStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_row="1"
                         android:layout_column="1"
                         android:layout_marginStart="28dp"
-                        android:layout_row="1"
                         android:gravity="end"
-                        android:text="@string/permission_denied"/>
+                        android:text="@string/permission_denied" />
             </GridLayout>
 
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:background="@color/colorSeparator"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorSeparator" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <uk.co.alt236.bluetoothconnectionlog.ui.views.ProgressDataListView
                 android:id="@+id/item_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layoutManager="LinearLayoutManager"
-                tools:context=".ui.main.MainActivity"
-                tools:listitem="@layout/list_item_device"
+                app:layout_constraintBottom_toTopOf="@+id/itemCountContainer"
                 app:layout_constraintTop_toBottomOf="@+id/itemStatusContainer"
-                app:layout_constraintBottom_toTopOf="@+id/itemCountContainer"/>
+                tools:context=".ui.main.MainActivity" />
 
         <LinearLayout
                 android:id="@+id/itemCountContainer"
@@ -99,15 +98,16 @@
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:background="@color/colorSeparator"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorSeparator" />
 
             <TextView
                     android:id="@+id/tvItemCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/formatter_device_count"/>
+                    android:text="@string/formatter_device_count" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
