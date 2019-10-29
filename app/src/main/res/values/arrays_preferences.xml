@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_event_rows_to_display_labels">
+        <item>100</item>
+        <item>200</item>
+        <item>@string/preference_event_rows_to_display_default_value</item>
+        <item>1000</item>
+        <item>All</item>
+    </string-array>
+
+    <!-- foreground color values array -->
+    <string-array name="array_event_rows_to_display_values">
+        <item>100</item>
+        <item>200</item>
+        <item>@string/preference_event_rows_to_display_default_value</item>
+        <item>1000</item>
+        <!-- Theoretical maximum of SQLite, IF you hit this, email me-->
+        <item>100000000000</item>
+    </string-array>
+</resources>

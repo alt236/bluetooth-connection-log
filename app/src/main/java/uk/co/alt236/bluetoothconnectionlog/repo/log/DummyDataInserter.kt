@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.repo
+package uk.co.alt236.bluetoothconnectionlog.repo.log
 
 import android.bluetooth.BluetoothClass
 import android.content.Context

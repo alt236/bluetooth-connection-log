@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
-import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
-import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogRepository
+import uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog.PersonalisedLogDevice
+import uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog.PersonalisedLogRepository
 
 class LogEntryViewModel(application: Application) : AndroidViewModel(application) {
     private val repo = PersonalisedLogRepository(application)

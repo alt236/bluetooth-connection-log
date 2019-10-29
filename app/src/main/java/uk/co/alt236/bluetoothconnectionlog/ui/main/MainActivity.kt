@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import uk.co.alt236.bluetoothconnectionlog.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.R
-import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
+import uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog.PersonalisedLogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.main.recycler.DeviceRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.Navigator

@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.repo
+package uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -8,11 +8,14 @@ import androidx.lifecycle.Transformations
 import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.repo.favourites.FavouritesRepository
+import uk.co.alt236.bluetoothconnectionlog.repo.log.LogRepository
 import java.util.*
 import kotlin.collections.ArrayList
 
 class PersonalisedLogRepository(context: Context) {
-    private val favRepo = FavouritesRepository(context)
+    private val favRepo =
+        FavouritesRepository(context)
     private val logRepo = LogRepository(context)
 
     fun getAllDevices(): LiveData<List<PersonalisedLogDevice>> {

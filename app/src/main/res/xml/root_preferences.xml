@@ -29,7 +29,21 @@
 
     <androidx.preference.PreferenceCategory
             app:iconSpaceReserved="false"
-            app:title="@string/preference_category_notifications">
+            app:title="@string/preference_category_data">
+
+        <androidx.preference.ListPreference
+                app:defaultValue="@string/preference_event_rows_to_display_default_value"
+                app:entries="@array/array_event_rows_to_display_labels"
+                app:entryValues="@array/array_event_rows_to_display_values"
+                app:iconSpaceReserved="false"
+                app:key="@string/preference_key_event_rows_to_display"
+                app:summary="Choose a background color"
+                app:title="@string/preference_title_event_rows_to_display" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+            app:iconSpaceReserved="false"
+            app:title="@string/preference_category_permissions">
 
         <androidx.preference.Preference
                 app:iconSpaceReserved="false"
