@@ -7,7 +7,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.FragmentActivity
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
-import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
+import uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog.PersonalisedLogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailFragment
 import uk.co.alt236.btdeviceinfo.DeviceIconMapper

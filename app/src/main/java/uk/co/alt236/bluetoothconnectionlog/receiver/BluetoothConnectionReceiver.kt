@@ -13,8 +13,9 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
 import uk.co.alt236.bluetoothconnectionlog.db.entities.Event
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
-import uk.co.alt236.bluetoothconnectionlog.repo.FavouritesRepository
-import uk.co.alt236.bluetoothconnectionlog.repo.LogRepository
+import uk.co.alt236.bluetoothconnectionlog.prefs.NotificationPrefs
+import uk.co.alt236.bluetoothconnectionlog.repo.favourites.FavouritesRepository
+import uk.co.alt236.bluetoothconnectionlog.repo.log.LogRepository
 
 private const val TAG = "BTCONEVENT"
 
@@ -32,7 +33,8 @@ class BluetoothConnectionReceiver : BroadcastReceiver() {
 
         if (HANDLED_ACTIONS.contains(action)) {
             val logRepository = LogRepository(context)
-            val isFaRepo = FavouritesRepository(context)
+            val isFaRepo =
+                FavouritesRepository(context)
 
             val device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE) as BluetoothDevice
             val logEntry = mapper.createLogEntry(device, action, System.currentTimeMillis())

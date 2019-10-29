@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import uk.co.alt236.bluetoothconnectionlog.repo.PersonalisedLogDevice
+import uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog.PersonalisedLogDevice
 
 class DeviceRecyclerAdapter(
     parentActivity: FragmentActivity,

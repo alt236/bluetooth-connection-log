@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.repo
+package uk.co.alt236.bluetoothconnectionlog.repo.favourites
 
 import android.content.Context
 import androidx.lifecycle.LiveData

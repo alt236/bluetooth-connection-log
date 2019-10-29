@@ -1,7 +1,8 @@
-package uk.co.alt236.bluetoothconnectionlog.repo
+package uk.co.alt236.bluetoothconnectionlog.repo.log
 
 import android.content.Context
 import android.os.AsyncTask
+import android.util.Log
 import androidx.lifecycle.LiveData
 import uk.co.alt236.bluetoothconnectionlog.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.db.LogDatabase
@@ -9,9 +10,11 @@ import uk.co.alt236.bluetoothconnectionlog.db.LogEntryDao
 import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.prefs.DataPrefs
 
 class LogRepository(context: Context) {
     private val dummyDataInserter: DummyDataInserter = DummyDataInserter(context, this)
+    private val dataPrefs = DataPrefs(context)
     private var logDao: LogEntryDao
 
     init {
@@ -41,7 +44,9 @@ class LogRepository(context: Context) {
     }
 
     fun getLogForDevice(macAddress: String): LiveData<List<LogEntry>> {
-        return logDao.getLogForDevice(macAddress)
+        val limit = dataPrefs.getEventRowsToDisplay()
+        Log.d(TAG, "Getting log for '$macAddress'. Limit: $limit")
+        return logDao.getLogForDevice(macAddress, limit)
     }
 
     private class InsertAsyncTask(private val logDao: LogEntryDao) :
@@ -56,5 +61,9 @@ class LogRepository(context: Context) {
         if (BuildConfig.DEBUG && BuildConfig.INSERT_DUMMY_DATA) {
             dummyDataInserter.insertDummyData()
         }
+    }
+
+    private companion object {
+        val TAG = LogRepository::class.java.simpleName
     }
 }

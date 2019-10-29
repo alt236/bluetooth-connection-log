@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.receiver
+package uk.co.alt236.bluetoothconnectionlog.prefs
 
 import android.content.Context
 import androidx.preference.PreferenceManager

@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.repo
+package uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog
 
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
 

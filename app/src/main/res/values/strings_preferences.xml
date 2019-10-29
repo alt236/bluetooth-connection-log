@@ -21,9 +21,16 @@
     <string name="preference_title_manage_permissions">Manage permissions</string>
     <string name="preference_key_manage_permissions" translatable="false">manage_permissions</string>
 
+    <!-- Data Settings -->
+    <string name="preference_category_data">Data</string>
+
+    <string name="preference_title_event_rows_to_display">Number of event rows</string>
+    <string name="preference_key_event_rows_to_display" translatable="false">event_rows_to_display</string>
+
     <!-- App Info Settings -->
     <string name="preference_category_app_info">Application Info</string>
 
     <string name="preference_title_app_version">Version</string>
     <string name="preference_key_app_version" translatable="false">application_version</string>
+    <string name="preference_event_rows_to_display_default_value" translatable="false">500</string>
 </resources>
