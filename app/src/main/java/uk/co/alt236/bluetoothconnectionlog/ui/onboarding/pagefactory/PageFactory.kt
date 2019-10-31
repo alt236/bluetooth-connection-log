@@ -32,7 +32,7 @@ class PageFactory(private val context: Context) {
             .buttonsColor(R.color.colorAccent)
             .title(title)
             .description(description)
-            .image(R.mipmap.ic_launcher)
+            .image(R.drawable.ic_onboarding_app_logo)
             .build()
 
         // Explanation goes first
@@ -50,6 +50,7 @@ class PageFactory(private val context: Context) {
             .buttonsColor(R.color.colorAccent)
             .title(title)
             .description(description)
+            .image(R.drawable.ic_onboarding_location)
             .possiblePermissions(logic.getRequiredPermissions())
             .build()
 
