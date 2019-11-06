@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModelProviders
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.extensions.getSerializableOrThrow
 import uk.co.alt236.bluetoothconnectionlog.ui.LogEntryViewModel
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.recycler.LogRecyclerAdapter
 import uk.co.alt236.bluetoothconnectionlog.ui.navigation.Navigator
 import uk.co.alt236.bluetoothconnectionlog.ui.views.ProgressDataListView
-import java.io.Serializable
 
 class DeviceDetailFragment : Fragment() {
 
@@ -87,15 +87,14 @@ class DeviceDetailFragment : Fragment() {
                 true
             }
 
+            R.id.action_show_info -> {
+                val infoFragment = DeviceInfoFragment.createInstance(btDevice)
+                infoFragment.show(fragmentManager!!, infoFragment::class.java.name)
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun Bundle?.getSerializableOrThrow(key: String): Serializable {
-        checkNotNull(this) { "No Arguments were found" }
-
-        return getSerializable(key)
-            ?: throw IllegalArgumentException("No $key was provided.")
     }
 
     companion object {

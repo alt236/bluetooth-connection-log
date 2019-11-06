@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="?dialogPreferredPadding">
+
+    <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+        <!-- OVERVIEW -->
+        <include
+                android:id="@+id/overview_separator"
+                layout="@layout/view_device_info_separator" />
+
+        <include
+                android:id="@+id/device_name"
+                layout="@layout/view_device_info_datarow" />
+
+        <include
+                android:id="@+id/device_mac_address"
+                layout="@layout/view_device_info_datarow" />
+
+
+        <!-- DEVICE CLASS -->
+        <include
+                android:id="@+id/device_class_separator"
+                layout="@layout/view_device_info_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+        <include
+                android:id="@+id/device_class_hex"
+                layout="@layout/view_device_info_datarow" />
+
+        <include
+                android:id="@+id/device_class"
+                layout="@layout/view_device_info_datarow" />
+
+        <include
+                android:id="@+id/device_major_class_separator"
+                layout="@layout/view_device_info_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+        <include
+                android:id="@+id/device_major_class_hex"
+                layout="@layout/view_device_info_datarow" />
+
+        <include
+                android:id="@+id/device_major_class"
+                layout="@layout/view_device_info_datarow" />
+
+    </TableLayout>
+</ScrollView>

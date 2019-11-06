@@ -12,7 +12,7 @@ class DataMapper {
         timestamp: Long
     ): LogEntry {
         val btDevice = BtDevice(
-            name = device.name,
+            name = device.name ?: "",
             macAddress = device.address,
             bluetoothClass = BluetoothClass(device.bluetoothClass)
         )
