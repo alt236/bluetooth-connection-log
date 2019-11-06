@@ -17,4 +17,11 @@
             android:title="@string/menu_item_not_favourite"
             android:visible="false"
             app:showAsAction="always" />
+
+    <item
+            android:id="@+id/action_show_info"
+            android:icon="@drawable/ic_action_info"
+            android:title="@string/menu_item_show_info"
+            android:visible="true"
+            app:showAsAction="ifRoom" />
 </menu>

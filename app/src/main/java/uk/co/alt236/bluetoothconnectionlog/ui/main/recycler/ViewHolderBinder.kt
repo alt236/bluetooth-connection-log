@@ -6,17 +6,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.FragmentActivity
 import uk.co.alt236.bluetoothconnectionlog.R
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogDevice
+import uk.co.alt236.bluetoothconnectionlog.extensions.getInfoFor
 import uk.co.alt236.bluetoothconnectionlog.repo.personalisedlog.PersonalisedLogDevice
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.detail.DeviceDetailFragment
-import uk.co.alt236.btdeviceinfo.DeviceIconMapper
+import uk.co.alt236.btdeviceinfo.BtDeviceClassInfoRepo
 
 internal class ViewHolderBinder(
     private val activity: FragmentActivity,
     private val twoPane: Boolean
 ) {
-    private val iconMapper = DeviceIconMapper()
+    private val deviceInfoRepo = BtDeviceClassInfoRepo()
 
     private val onClickListener = View.OnClickListener { v ->
         val item = v.tag as PersonalisedLogDevice
@@ -38,9 +38,11 @@ internal class ViewHolderBinder(
         holder: ViewHolder,
         item: PersonalisedLogDevice
     ) {
+        val info = deviceInfoRepo.getInfoFor(item.logDevice)
+
         holder.name.text = item.logDevice.device.name
         holder.macAddress.text = item.logDevice.device.macAddress
-        holder.image.setImageResource(iconMapper.getImage(item.logDevice))
+        holder.image.setImageResource(info.iconRes)
 
         setFavourite(holder, item)
 
@@ -61,12 +63,5 @@ internal class ViewHolderBinder(
         }
 
         ImageViewCompat.setImageTintList(holder.image, ColorStateList.valueOf(color))
-    }
-
-    private fun DeviceIconMapper.getImage(item: LogDevice): Int {
-        return getImage(
-            item.device.bluetoothClass.deviceClass,
-            item.device.bluetoothClass.majorDeviceClass
-        )
     }
 }

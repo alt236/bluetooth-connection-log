@@ -22,6 +22,7 @@
     <string name="menu_item_settings">Settings</string>
     <string name="menu_item_favourite">Favourite</string>
     <string name="menu_item_not_favourite">Not Favourite</string>
+    <string name="menu_item_show_info">Device Info</string>
 
     <!-- Device Event Toasts -->
     <string name="toast_device_connected">BT device connected: \'%s\'</string>
