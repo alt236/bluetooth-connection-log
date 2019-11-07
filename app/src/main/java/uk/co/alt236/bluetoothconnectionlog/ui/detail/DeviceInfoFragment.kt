@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import uk.co.alt236.bluetoothconnectionlog.R
@@ -51,19 +52,19 @@ class DeviceInfoFragment : DialogFragment() {
 
         val deviceClassInfo = classInfoRepo.getInfoFor(btDevice)
 
-        setSeparatorData(view.findViewById<View>(R.id.overview_separator), "Overview")
+        // OVERVIEW
+        setSeparatorData(view.findViewById(R.id.overview_separator), "Overview")
         setRowData(deviceNameRow, "Name:", btDevice.name)
         setRowData(deviceAddressRow, "MAC:", btDevice.macAddress)
 
-        setSeparatorData(view.findViewById<View>(R.id.device_class_separator), "Device Class")
-        setRowData(deviceClassRow, "Name:", deviceClassInfo.parsedDeviceClass.name)
+        // DEVICE CLASS
+        setSeparatorData(view.findViewById(R.id.device_class_separator), "Device Class")
+        setRowData(deviceClassRow, "Name:", deviceClassInfo.deviceClassNameResId)
         setRowData(deviceClassHexRow, "Value:", deviceClassInfo.deviceClass.toHex())
 
-        setSeparatorData(
-            view.findViewById<View>(R.id.device_major_class_separator),
-            "Device Major Class"
-        )
-        setRowData(deviceMajorClassRow, "Name:", deviceClassInfo.parsedMajorDeviceClass.name)
+        // DEVICE MAJOR CLASS
+        setSeparatorData(view.findViewById(R.id.device_major_class_separator), "Device Major Class")
+        setRowData(deviceMajorClassRow, "Name:", deviceClassInfo.majorDeviceClassNameResId)
         setRowData(deviceMajorClassHexRow, "Value:", deviceClassInfo.majorDeviceClass.toHex())
     }
 
@@ -72,6 +73,11 @@ class DeviceInfoFragment : DialogFragment() {
         row.findViewById<TextView>(R.id.value).text = value
     }
 
+    private fun setRowData(row: View, title: String, @StringRes value: Int) {
+        row.findViewById<TextView>(R.id.title).text = title
+        row.findViewById<TextView>(R.id.value).setText(value)
+    }
+    
     private fun setSeparatorData(row: View, title: String) {
         row.findViewById<TextView>(R.id.title).text = title
     }

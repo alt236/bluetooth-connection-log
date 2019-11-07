@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="bt_device_major_class_unknown">@string/bt_device_class_common_unknown</string>
+    <string name="bt_device_major_class_misc">Miscellaneous</string>
+    <string name="bt_device_major_class_computer">Computer</string>
+    <string name="bt_device_major_class_phone">Phone</string>
+    <string name="bt_device_major_class_networking">Networking</string>
+    <string name="bt_device_major_class_audio_video">Audio/Video</string>
+    <string name="bt_device_major_class_peripheral">Peripheral</string>
+    <string name="bt_device_major_class_imaging">Imaging</string>
+    <string name="bt_device_major_class_wearable">Wearable</string>
+    <string name="bt_device_major_class_toy">Toy</string>
+    <string name="bt_device_major_class_health">Health</string>
+    <string name="bt_device_major_class_uncategorized">@string/bt_device_class_common_uncategorised</string>
+
+</resources>

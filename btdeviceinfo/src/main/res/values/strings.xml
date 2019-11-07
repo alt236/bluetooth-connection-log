@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">btdeviceinfo</string>
+
+    <string name="bt_device_class_common_uncategorised">Uncategorised</string>
+    <string name="bt_device_class_common_unknown">Unknown</string>
+    <string name="bt_device_class_common_reserved">Reserved</string>
+
 </resources>
