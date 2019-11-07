@@ -1,0 +1,66 @@
+<resources>
+    <string name="bt_device_class_unknown">@string/bt_device_class_common_unknown</string>
+
+    <string name="bt_device_class_audio_video_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_audio_video_wearable_headset">Wearable Headset</string>
+    <string name="bt_device_class_audio_video_handsfree">Handsfree</string>
+    <string name="bt_device_class_audio_video_microphone">Microphone</string>
+    <string name="bt_device_class_audio_video_loudspeaker">Loudspeaker</string>
+    <string name="bt_device_class_audio_video_headphones">Headphones</string>
+    <string name="bt_device_class_audio_video_portable_audio">Portable Audio</string>
+    <string name="bt_device_class_audio_video_car_audio">Car Audio</string>
+    <string name="bt_device_class_audio_video_set_top_box">Set-top Box</string>
+    <string name="bt_device_class_audio_video_hifi_audio">HiFi Audio</string>
+    <string name="bt_device_class_audio_video_vcr">VCR</string>
+    <string name="bt_device_class_audio_video_video_camera">Video Camera</string>
+    <string name="bt_device_class_audio_video_camcorder">Camcorder</string>
+    <string name="bt_device_class_audio_video_video_monitor">Video Monitor</string>
+    <string name="bt_device_class_audio_video_video_display_and_loudspeaker">AV Display &amp; Loudspeaker</string>
+    <string name="bt_device_class_audio_video_video_conferencing">Video Conferencing</string>
+    <string name="bt_device_class_audio_video_video_gaming_toy">Video Game Toy</string>
+    <string name="bt_device_class_audio_video_reserved">@string/bt_device_class_common_reserved</string>
+
+    <string name="bt_device_class_computer_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_computer_desktop">Desktop</string>
+    <string name="bt_device_class_computer_server">Server</string>
+    <string name="bt_device_class_computer_laptop">Laptop</string>
+    <string name="bt_device_class_computer_handheld_pc_pda">Handheld PC/PDA</string>
+    <string name="bt_device_class_computer_palm_size_pc_pda">Palm-size PC/PDA</string>
+    <string name="bt_device_class_computer_wearable">Wearable</string>
+
+    <string name="bt_device_class_phone_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_phone_cellular">Cellular</string>
+    <string name="bt_device_class_phone_cordless">Cordless</string>
+    <string name="bt_device_class_phone_smart">Smart</string>
+    <string name="bt_device_class_phone_modem_or_gateway">Modem/Gateway</string>
+    <string name="bt_device_class_phone_isdn">ISDN</string>
+
+    <string name="bt_device_class_toy_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_toy_robot">Robot</string>
+    <string name="bt_device_class_toy_vehicle">Vehicle</string>
+    <string name="bt_device_class_toy_doll_action_figure">Doll/Action Figure</string>
+    <string name="bt_device_class_toy_controller">Controller</string>
+    <string name="bt_device_class_toy_game">Game</string>
+
+    <string name="bt_device_class_wearable_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_wearable_wrist_watch">Wrist Watch</string>
+    <string name="bt_device_class_wearable_pager">Pager</string>
+    <string name="bt_device_class_wearable_jacket">Jacket</string>
+    <string name="bt_device_class_wearable_helmet">Helmet</string>
+    <string name="bt_device_class_wearable_glasses">Glasses</string>
+
+    <string name="bt_device_class_health_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_health_blood_pressure">Blood Pressure</string>
+    <string name="bt_device_class_health_thermometer">Thermometer</string>
+    <string name="bt_device_class_health_weighing">Weighting</string>
+    <string name="bt_device_class_health_glucose">Glucose</string>
+    <string name="bt_device_class_health_pulse_oximeter">Pulse Oximeter</string>
+    <string name="bt_device_class_health_pulse_rate">Pulse Rate</string>
+    <string name="bt_device_class_health_data_display">Data Display</string>
+
+    <string name="bt_device_class_peripheral_uncategorized">@string/bt_device_class_common_uncategorised</string>
+    <string name="bt_device_class_peripheral_keyboard">Keyboard</string>
+    <string name="bt_device_class_peripheral_keyboard_pointing">Keyboard Pointing</string>
+    <string name="bt_device_class_peripheral_pointing">Pointing</string>
+
+</resources>

@@ -7,9 +7,12 @@ import android.bluetooth.BluetoothClass
 import android.bluetooth.BluetoothDevice
 import uk.co.alt236.btdeviceinfo.enums.ParsedDeviceClass
 import uk.co.alt236.btdeviceinfo.enums.ParsedDeviceMajorClass
+import uk.co.alt236.btdeviceinfo.mappers.IconMapper
+import uk.co.alt236.btdeviceinfo.mappers.TextMapper
 
 class BtDeviceClassInfoRepo {
-    private val iconMapper = DeviceIconMapper()
+    private val iconMapper = IconMapper()
+    private val textMapper = TextMapper()
 
     @SuppressLint("MissingPermission")
     fun getInfoFor(device: BluetoothDevice): FriendlyClassInfo {
@@ -29,10 +32,15 @@ class BtDeviceClassInfoRepo {
 
         val icon = iconMapper.getImage(parsedClass, parsedMajorClass)
 
+        val deviceClassName = textMapper.getName(parsedClass)
+        val majorDeviceClassName = textMapper.getName(parsedMajorClass)
+
         return FriendlyClassInfo(
             icon,
             deviceClass,
             majorDeviceClass,
+            deviceClassName,
+            majorDeviceClassName,
             parsedClass,
             parsedMajorClass
         )

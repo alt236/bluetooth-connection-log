@@ -1,10 +1,11 @@
-package uk.co.alt236.btdeviceinfo
+package uk.co.alt236.btdeviceinfo.mappers
 
 import androidx.annotation.DrawableRes
+import uk.co.alt236.btdeviceinfo.R
 import uk.co.alt236.btdeviceinfo.enums.ParsedDeviceClass
 import uk.co.alt236.btdeviceinfo.enums.ParsedDeviceMajorClass
 
-internal class DeviceIconMapper {
+internal class IconMapper {
 
     @DrawableRes
     fun getImage(deviceClass: ParsedDeviceClass, majorDeviceClass: ParsedDeviceMajorClass): Int {
