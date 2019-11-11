@@ -4,7 +4,7 @@ ext {
     androidx_espresso_core_version = "3.1.0"
     androidx_legacy_v4 = "1.0.0"
     androidx_lifecycle_version = "2.1.0"
-    androidx_room_version = "2.1.0"
+    androidx_room_version = "2.2.0"
     androidx_core_ktx = "1.1.0"
     androidx_preferences = "1.1.0"
 

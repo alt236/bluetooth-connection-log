@@ -4,10 +4,7 @@ import android.bluetooth.BluetoothClass
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import uk.co.alt236.bluetoothconnectionlog.BuildConfig
-import uk.co.alt236.bluetoothconnectionlog.db.entities.BtDevice
-import uk.co.alt236.bluetoothconnectionlog.db.entities.Event
-import uk.co.alt236.bluetoothconnectionlog.db.entities.Location
-import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
+import uk.co.alt236.bluetoothconnectionlog.db.entities.*
 
 internal class DummyDataInserter(
     context: Context,
@@ -21,12 +18,12 @@ internal class DummyDataInserter(
         }
 
         for (x in 0 until NUMBER_OF_ITEMS) {
-            val btClass = uk.co.alt236.bluetoothconnectionlog.db.entities.BluetoothClass(
+            val btClass = BluetoothClass(
                 BluetoothClass.Device.PHONE_SMART,
                 BluetoothClass.Device.Major.PHONE
             )
             val macAddress = "AA:FF:FF:FF:FF:F$x"
-            val btDevice = BtDevice(btClass, macAddress, "Device #$x")
+            val btDevice = BtDevice(btClass, macAddress, "Device #$x", DeviceType.DUAL)
 
             val location = LOCATIONS[x]
             val event = when (x) {

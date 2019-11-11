@@ -45,6 +45,7 @@ class DeviceInfoFragment : DialogFragment() {
 
         val deviceNameRow = view.findViewById<View>(R.id.device_name)
         val deviceAddressRow = view.findViewById<View>(R.id.device_mac_address)
+        val deviceTypeRow = view.findViewById<View>(R.id.device_type)
         val deviceClassRow = view.findViewById<View>(R.id.device_class)
         val deviceClassHexRow = view.findViewById<View>(R.id.device_class_hex)
         val deviceMajorClassRow = view.findViewById<View>(R.id.device_major_class)
@@ -56,6 +57,7 @@ class DeviceInfoFragment : DialogFragment() {
         setSeparatorData(view.findViewById(R.id.overview_separator), "Overview")
         setRowData(deviceNameRow, "Name:", btDevice.name)
         setRowData(deviceAddressRow, "MAC:", btDevice.macAddress)
+        setRowData(deviceTypeRow, "Type:", btDevice.type.name)
 
         // DEVICE CLASS
         setSeparatorData(view.findViewById(R.id.device_class_separator), "Device Class")
@@ -81,19 +83,6 @@ class DeviceInfoFragment : DialogFragment() {
     private fun setSeparatorData(row: View, title: String) {
         row.findViewById<TextView>(R.id.title).text = title
     }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        return inflater.inflate(R.layout.fragment_device_info, container, false)
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-
-//    }
 
     private fun Int.toHex(): String {
         return String.format("0x%04X", this)

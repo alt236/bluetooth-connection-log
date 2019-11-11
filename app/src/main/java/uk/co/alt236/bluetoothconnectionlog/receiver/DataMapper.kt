@@ -14,12 +14,13 @@ class DataMapper {
         val btDevice = BtDevice(
             name = device.name ?: "",
             macAddress = device.address,
-            bluetoothClass = BluetoothClass(device.bluetoothClass)
+            bluetoothClass = BluetoothClass(device.bluetoothClass),
+            type = DeviceType.fromAndroidType(device.type)
         )
 
         return LogEntry(
             timestamp = timestamp,
-            event = bluetoothConnectionEventToAEnum(event),
+            event = Event.fromAndroidEvent(event),
             location = Location.INVALID,
             device = btDevice
         )
@@ -52,15 +53,6 @@ class DataMapper {
             androidLocation.verticalAccuracyMeters
         } else {
             0.0f
-        }
-    }
-
-    private fun bluetoothConnectionEventToAEnum(event: String): Event {
-        return when (event) {
-            BluetoothDevice.ACTION_ACL_CONNECTED -> Event.CONNECTED
-            BluetoothDevice.ACTION_ACL_DISCONNECTED -> Event.DISCONNECTED
-            BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED -> Event.DISCONNECT_REQUESTED
-            else -> Event.UNKNOWN
         }
     }
 }

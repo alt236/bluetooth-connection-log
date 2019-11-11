@@ -23,6 +23,9 @@
                 android:id="@+id/device_mac_address"
                 layout="@layout/view_device_info_datarow" />
 
+        <include
+                android:id="@+id/device_type"
+                layout="@layout/view_device_info_datarow" />
 
         <!-- DEVICE CLASS -->
         <include
