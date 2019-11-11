@@ -11,7 +11,11 @@ data class BtDevice(
     val macAddress: String,
 
     @ColumnInfo(name = "name")
-    val name: String
+    val name: String,
+
+    @ColumnInfo(name = "type")
+    val type: DeviceType
+
 ) : Serializable {
 
     fun getDisplayName(): String {
