@@ -48,7 +48,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun setupVersionPref() {
         val key = getString(R.string.preference_key_app_version)
         val pref: Preference = findPreference(key)!!
-        pref.summary = "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+        pref.summary =
+            "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) [${BuildConfig.GIT_HASH_SHORT}]"
     }
 
     private fun setupManagePermissionsPref() {
