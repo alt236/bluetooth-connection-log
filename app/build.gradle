@@ -6,9 +6,11 @@ apply from: "${project.rootDir}/buildsystem/android-defaults.gradle"
 
 android {
     defaultConfig {
+        def buildNumber = getBuildNumber()
+
         applicationId "uk.co.alt236.bluetoothconnectionlog"
-        versionCode getBuildNumber()
-        versionName "1.0.0." + getBuildNumber()
+        versionCode buildNumber
+        versionName "1.0.0." + buildNumber
 
         buildConfigField "String", "GIT_HASH_SHORT", quoteString(execGitHashShort())
         buildConfigField "Boolean", "INSERT_DUMMY_DATA", "false"
