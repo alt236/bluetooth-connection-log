@@ -1,4 +1,4 @@
-package uk.co.alt236.bluetoothconnectionlog.map.osm.overlays
+package uk.co.alt236.bluetoothconnectionlog.map.osm
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import org.osmdroid.views.MapView
 import uk.co.alt236.bluetoothconnectionlog.map.BuildConfig
 import uk.co.alt236.bluetoothconnectionlog.map.R
 import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
-import uk.co.alt236.bluetoothconnectionlog.map.osm.MapWrapper
 
 internal class OsmFragment : Fragment() {
 
