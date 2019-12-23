@@ -83,9 +83,9 @@ dependencies {
 
 play {
     def credentialsPath = System.getenv("GPLAY_DEPLOY_KEY") ?: "[KEY_NOT_DEFINED]"
-    def lastCommitMessage = getLastGitCommitMessage()
+    def lastCommitMessage = getLastGitCommitMessage().take(50)
     logger.warn("GPP Config: $credentialsPath")
-    logger.warn("Release Name: $lastCommitMessage")
+    logger.warn("Release Name: '$lastCommitMessage'")
 
     if(isRunningOnCi()) {
         enabled = true
