@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import uk.co.alt236.bluetoothconnectionlog.map.gmaps.GmapsFragment
 import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
-import uk.co.alt236.bluetoothconnectionlog.map.osm.overlays.OsmFragment
+import uk.co.alt236.bluetoothconnectionlog.map.osm.OsmFragment
 
 class MapActivity : AppCompatActivity() {
 
@@ -50,7 +50,6 @@ class MapActivity : AppCompatActivity() {
         }
 
     companion object {
-        private val TAG = MapActivity::class.java.simpleName
         private const val ARG_POI = "ARG_POI"
         private const val ARG_GMAPS = "ARG_GMAPS"
 

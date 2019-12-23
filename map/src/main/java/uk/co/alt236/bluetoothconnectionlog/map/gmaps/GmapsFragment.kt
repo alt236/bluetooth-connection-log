@@ -10,6 +10,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.LatLng
+import uk.co.alt236.bluetoothconnectionlog.map.LocationPermissionCheck
 import uk.co.alt236.bluetoothconnectionlog.map.R
 import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
 
@@ -17,6 +18,7 @@ import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
 internal class GmapsFragment : Fragment() {
 
     private lateinit var mapView: MapView
+    private val locationPermissionCheck = LocationPermissionCheck()
     private val markerDrawer = MarkerDrawer()
 
     override fun onAttach(context: Context) {
@@ -49,8 +51,11 @@ internal class GmapsFragment : Fragment() {
 
         mapView.getMapAsync { map ->
             val poi: Poi = arguments?.getSerializable(ARG_POI) as Poi
-            map.uiSettings.isMyLocationButtonEnabled = true
-            map.isMyLocationEnabled = true
+
+            if (locationPermissionCheck.isLocationAccessGranted(context!!)) {
+                map.uiSettings.isMyLocationButtonEnabled = true
+                map.isMyLocationEnabled = true
+            }
 
             markerDrawer.drawMarker(view.context, map, poi)
             goToLocation(map, poi)
@@ -106,7 +111,6 @@ internal class GmapsFragment : Fragment() {
     }
 
     companion object {
-        private val TAG = GmapsFragment::class.java.simpleName
         private const val ARG_POI = "ARG_POI"
         private const val DEFAULT_ZOOM = 18f
 
