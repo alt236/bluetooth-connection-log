@@ -16,7 +16,8 @@ references:
     docker:
       - image: circleci/android:api-29
     environment:
-      JVM_OPTS: -Xmx3500m
+      JVM_OPTS: -Xmx2048m
+      GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
 
   #
   # CACHE CONTROL
@@ -89,6 +90,24 @@ references:
       command: |
         ./gradlew assembleDebug
 
+  #
+  # BUILDING RELEASE APKS
+  #
+  build_release_apks: &build_release_apks
+    run:
+      name: Building Release APKs
+      command: |
+        ./gradlew assembleRelease
+
+  setup_environment: &setup_environment
+    run:
+      name: Setup environment
+      command: |
+        echo "$ENCODED_KEYSTORE" | base64 -di >> "${HOME}"/keystore.jks
+        echo "$ENCODED_GPLAY_DEPLOY_KEY" | base64 -di --decode >> "${HOME}"/deployment_private_key.json
+        echo "export ANDROID_KEYSTORE=${HOME}/keystore.jks" >> "$BASH_ENV"
+        echo "export GPLAY_DEPLOY_KEY=${HOME}/deployment_private_key.json" >> "$BASH_ENV"
+
 ##
 ## COMMANDS
 ################################################################
@@ -106,7 +125,7 @@ commands:
       - store_test_results:
           path: << parameters.module_name >>/build/test-results
 
-  upload_apks:
+  upload_apks_to_ci:
     description: "Upload the APKs generated for a given module"
     parameters:
       module_name:
@@ -137,6 +156,22 @@ commands:
       - *restore_cache
       - *download_android_dependencies
 
+  deploy_to_google_play:
+    description: "Deploy APKs to Google Play"
+    parameters:
+      only_for_branch:
+        type: string
+        default: "[MISSING]"
+    steps:
+      - deploy:
+          name: "Deploy to Google Play"
+          when: on_success
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "<< parameters.only_for_branch >>" ]; then
+              ./gradlew publish
+            else
+              echo "Branch is not '<< parameters.only_for_branch >>'. Skipping deployment."
+            fi
 
 ##
 ## JOBS
@@ -146,12 +181,14 @@ jobs:
     <<: *environment_config
     steps:
       - checkout
+      - *setup_environment
       - setup_dependency_cache
       - *run_unit_tests
       - *produce_code_coverage # Produce code coverage needs to be straight after running unit tests
       - *print_code_coverage
       - *run_android_lint
       - *build_debug_apks
+      - *build_release_apks
       - *save_cache  # Moved after test runs to capture dep downloads from the previous step
       - print_apk_info:
           module_name: "app"
@@ -162,13 +199,17 @@ jobs:
       - upload_test_results_and_artifacts:
           module_name: "app"
       - upload_test_results_and_artifacts:
+          module_name: "map"
+      - upload_test_results_and_artifacts:
           module_name: "btdeviceinfo"
       - upload_test_results_and_artifacts:
           module_name: "database"
       - upload_test_results_and_artifacts:
           module_name: "sharedprefs"
-      - upload_apks:
+      - upload_apks_to_ci:
           module_name: "app"
+      - deploy_to_google_play:
+          only_for_branch: "master"
 
 workflows:
   version: 2.1
