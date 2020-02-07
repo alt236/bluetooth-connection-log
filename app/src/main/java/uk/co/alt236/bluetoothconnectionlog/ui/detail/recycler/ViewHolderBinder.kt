@@ -15,7 +15,7 @@ internal class ViewHolderBinder(
     private val onClickListener = View.OnClickListener { v ->
         val item = v.tag as LogEntry
 
-        if (item.location.valid) {
+        if (item.location.isValid()) {
             navigator.openMap(item)
         }
     }
@@ -24,7 +24,7 @@ internal class ViewHolderBinder(
         holder.action.text = item.event.toString()
         holder.timestamp.text = dateFormatter.format(item.timestamp)
 
-        if (item.location.valid) {
+        if (item.location.isValid()) {
             holder.image.visibility = View.VISIBLE
         } else {
             holder.image.visibility = View.GONE
