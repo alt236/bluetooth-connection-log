@@ -37,7 +37,7 @@ class Navigator(private val context: Context) {
     }
 
     fun openMap(entry: LogEntry) {
-        require(entry.location.valid) { "Passed location is not valid!" }
+        require(entry.location.isValid()) { "Passed location is not valid!" }
 
         val poi = mapper.map(entry)
         val intent = mapIntentFactory.createIntent(poi)

@@ -17,28 +17,42 @@ internal class DummyDataInserter(
             return
         }
 
-        for (x in 0 until NUMBER_OF_ITEMS) {
+        for (deviceNo in 0 until NUMBER_OF_DEVICES) {
+            val macAddress = "AA:FF:FF:FF:FF:F$deviceNo"
             val btClass = BluetoothClass(
                 BluetoothClass.Device.PHONE_SMART,
                 BluetoothClass.Device.Major.PHONE
             )
-            val macAddress = "AA:FF:FF:FF:FF:F$x"
-            val btDevice = BtDevice(btClass, macAddress, "Device #$x", DeviceType.DUAL)
-
-            val location = LOCATIONS[x]
-            val event = when (x) {
-                0 -> Event.CONNECTED
-                1 -> Event.DISCONNECTED
-                2 -> Event.DISCONNECT_REQUESTED
-                else -> Event.UNKNOWN
-            }
-
-            val logEntry = LogEntry(event, location.timestamp, btDevice, location)
-
-            repo.insert(logEntry)
+            val btDevice = BtDevice(btClass, macAddress, "Device #$deviceNo", DeviceType.DUAL)
+            createEntries(deviceNo, btDevice)
         }
 
         prefs.edit().putBoolean(KEY_ALREADY_ADDED, true).apply()
+    }
+
+
+    private fun createEntries(deviceNo: Int, btDevice: BtDevice) {
+        for (eventNo in 0 until NUMBER_OF_ENTRIES) {
+            val baseTimestamp = LOCATIONS[deviceNo].timestamp
+            val timestamp = baseTimestamp + (eventNo * 1000)
+
+            val location = if (eventNo % 9 == 0) {
+                Location.INVALID
+            } else {
+                LOCATIONS[deviceNo]
+            }
+
+            val event = when {
+                (eventNo % 7 == 0) -> Event.UNKNOWN
+                (eventNo % 2 == 0) -> Event.CONNECTED
+                (eventNo % 5 == 0) -> Event.DISCONNECTED
+                (eventNo % 3 == 0) -> Event.DISCONNECT_REQUESTED
+                else -> Event.CONNECTED
+            }
+
+            val logEntry = LogEntry(event, timestamp, btDevice, location)
+            repo.insert(logEntry)
+        }
     }
 
     private companion object {
@@ -75,6 +89,9 @@ internal class DummyDataInserter(
                 horizontalAccuracy = 100.0f
             ) //Beijing
         )
-        val NUMBER_OF_ITEMS = LOCATIONS.size
+
+
+        val NUMBER_OF_DEVICES = LOCATIONS.size
+        const val NUMBER_OF_ENTRIES = 100
     }
 }

@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class Location(
     @ColumnInfo(name = "valid")
-    val valid: Boolean = true,
+    internal val valid: Boolean = true,
 
     @ColumnInfo(name = "latitude")
     val latitude: Double,
@@ -21,10 +21,17 @@ class Location(
     @ColumnInfo(name = "accuracy_vertical")
     val verticalAccuracy: Float = 0.0f
 ) : Serializable {
+
+    fun isValid(): Boolean {
+        return valid
+                && timestamp != 0L // This is to fix a bug where the valid flag in INVALID was not set to false
+    }
+
     companion object {
 
         @JvmField
         val INVALID = Location(
+            valid = false,
             latitude = 0.0,
             longitude = 0.0,
             altitude = 0.0,
