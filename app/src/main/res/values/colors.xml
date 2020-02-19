@@ -13,4 +13,10 @@
     <color name="item_favourite">#4CAF50</color>
     <color name="item_unfavourite">@color/colorAccent</color>
 
+    <color name="icon_tint_list_action">#7a7a7a</color>
+
+    <color name="bt_action_connected">#4CAF50</color>
+    <color name="bt_action_disconnected">#FF5222</color>
+    <color name="bt_action_disconnect_requested">#FFC107</color>
+    <color name="bt_action_unknown">#1B50BB</color>
 </resources>
