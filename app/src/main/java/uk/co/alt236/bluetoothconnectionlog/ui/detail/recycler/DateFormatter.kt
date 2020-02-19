@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateFormatter(context: Context) {
-    private val dateFormat = createDateFormat(context)
+    private val dateFormat = createDateFormat(context.applicationContext)
 
     private fun createDateFormat(context: Context): java.text.DateFormat {
         val currentLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

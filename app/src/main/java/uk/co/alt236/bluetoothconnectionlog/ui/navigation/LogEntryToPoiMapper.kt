@@ -1,15 +1,16 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.navigation
 
-import android.graphics.Color
+import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.db.entities.Event
 import uk.co.alt236.bluetoothconnectionlog.db.entities.LogEntry
 import uk.co.alt236.bluetoothconnectionlog.map.model.Graphics
 import uk.co.alt236.bluetoothconnectionlog.map.model.Poi
 
-class LogEntryToPoiMapper {
+class LogEntryToPoiMapper(private val context: Context) {
 
     fun map(entry: LogEntry): Poi {
         val graphics = Graphics(
@@ -39,17 +40,13 @@ class LogEntryToPoiMapper {
     @ColorInt
     fun getColor(event: Event): Int {
         return when (event) {
-            Event.CONNECTED -> CONNECTED_COLOR
-            Event.DISCONNECTED -> DISCONNECTED_COLOR
-            Event.DISCONNECT_REQUESTED -> DISCONNECT_REQ_COLOR
-            else -> UNKNOWN_COLOR
+            Event.CONNECTED -> ContextCompat.getColor(context, R.color.bt_action_connected)
+            Event.DISCONNECTED -> ContextCompat.getColor(context, R.color.bt_action_disconnected)
+            Event.DISCONNECT_REQUESTED -> ContextCompat.getColor(
+                context,
+                R.color.bt_action_disconnect_requested
+            )
+            else -> ContextCompat.getColor(context, R.color.bt_action_unknown)
         }
-    }
-
-    private companion object {
-        val CONNECTED_COLOR = Color.parseColor("#4CAF50")
-        val DISCONNECTED_COLOR = Color.parseColor("#FF5222")
-        val DISCONNECT_REQ_COLOR = Color.parseColor("#FFC107")
-        val UNKNOWN_COLOR = Color.parseColor("#1B50BB")
     }
 }

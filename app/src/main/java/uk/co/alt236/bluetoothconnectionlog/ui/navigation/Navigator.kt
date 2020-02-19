@@ -12,8 +12,8 @@ import uk.co.alt236.bluetoothconnectionlog.ui.onboarding.OnBoardingActivity
 import uk.co.alt236.bluetoothconnectionlog.ui.settings.SettingsActivity
 
 class Navigator(private val context: Context) {
-    private val mapIntentFactory = MapIntentFactory(context)
-    private val mapper = LogEntryToPoiMapper()
+    private val mapIntentFactory = MapIntentFactory(context.applicationContext)
+    private val mapper = LogEntryToPoiMapper(context.applicationContext)
 
     fun openOnBoarding() {
         val intent = Intent(context, OnBoardingActivity::class.java)
