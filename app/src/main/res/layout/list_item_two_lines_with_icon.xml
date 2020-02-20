@@ -12,14 +12,16 @@
         android:paddingBottom="6dp">
 
     <ImageView
-            android:id="@+id/map_icon"
+            android:id="@+id/action_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:tint="@color/icon_tint_list_action"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_action_show_map" />
+            app:srcCompat="@drawable/ic_action_show_map"
+            tools:visibility="visible" />
 
     <FrameLayout
             android:id="@+id/icon_container"
@@ -44,7 +46,7 @@
     </FrameLayout>
 
     <TextView
-            android:id="@+id/action"
+            android:id="@+id/line1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,13 +56,13 @@
             android:textAlignment="textStart"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/map_icon"
+            app:layout_constraintEnd_toStartOf="@+id/action_icon"
             app:layout_constraintStart_toEndOf="@+id/icon_container"
             app:layout_constraintTop_toTopOf="@+id/icon_container"
             tools:text="action asdfasfsadf asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfasdfa asdfasdfasdf asdfsadf " />
 
     <TextView
-            android:id="@+id/timestamp"
+            android:id="@+id/line2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -70,9 +72,9 @@
             android:textAlignment="textStart"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/icon_container"
-            app:layout_constraintEnd_toStartOf="@+id/map_icon"
+            app:layout_constraintEnd_toStartOf="@+id/action_icon"
             app:layout_constraintStart_toEndOf="@+id/icon_container"
-            app:layout_constraintTop_toBottomOf="@+id/action"
+            app:layout_constraintTop_toBottomOf="@+id/action_icon"
             tools:text="timestamp asdfasfsadf asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfasdfa asdfasdfasdf asdfsadf " />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

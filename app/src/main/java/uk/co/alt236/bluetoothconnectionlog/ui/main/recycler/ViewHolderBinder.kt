@@ -1,9 +1,7 @@
 package uk.co.alt236.bluetoothconnectionlog.ui.main.recycler
 
-import android.content.res.ColorStateList
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.FragmentActivity
 import uk.co.alt236.bluetoothconnectionlog.R
 import uk.co.alt236.bluetoothconnectionlog.extensions.getInfoFor
@@ -40,9 +38,9 @@ internal class ViewHolderBinder(
     ) {
         val info = deviceInfoRepo.getInfoFor(item.logDevice)
 
-        holder.name.text = item.logDevice.device.name
-        holder.macAddress.text = item.logDevice.device.macAddress
-        holder.image.setImageResource(info.iconRes)
+        holder.setName(item.logDevice.device.name)
+        holder.setMac(item.logDevice.device.macAddress)
+        holder.setIcon(info.iconRes)
 
         setFavourite(holder, item)
 
@@ -52,16 +50,12 @@ internal class ViewHolderBinder(
         }
     }
 
-    private fun setFavourite(
-        holder: ViewHolder,
-        item: PersonalisedLogDevice
-    ) {
+    private fun setFavourite(holder: ViewHolder, item: PersonalisedLogDevice) {
         val color = if (item.favourite) {
-            ContextCompat.getColor(holder.image.context, R.color.item_favourite)
+            R.color.item_favourite
         } else {
-            ContextCompat.getColor(holder.image.context, R.color.item_unfavourite)
+            R.color.item_unfavourite
         }
-
-        ImageViewCompat.setImageTintList(holder.image, ColorStateList.valueOf(color))
+        holder.setIconBackgroundColor(color)
     }
 }

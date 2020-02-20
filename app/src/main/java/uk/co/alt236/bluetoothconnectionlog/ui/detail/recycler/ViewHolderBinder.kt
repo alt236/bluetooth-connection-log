@@ -23,11 +23,11 @@ internal class ViewHolderBinder(
     }
 
     fun onBindViewHolder(holder: ViewHolder, item: LogEntry) {
-        holder.timestamp.text = dateFormatter.format(item.timestamp)
+        val actionDescription = getActionDescription(item)
 
         showLocation(holder, item)
-        val actionDescription = getActionDescription(item)
         holder.setActionInfo(actionDescription)
+        holder.setTimeStamp(dateFormatter.format(item.timestamp))
     }
 
     private fun showLocation(holder: ViewHolder, item: LogEntry) {
